@@ -8,6 +8,7 @@
 
 import UIKit
 import XCTest
+import TLSphinxSwift
 
 class TLSphinxSwiftTests: XCTestCase {
     
@@ -23,7 +24,8 @@ class TLSphinxSwiftTests: XCTestCase {
     
     func testExample() {
         // This is an example of a functional test case.
-        XCTAssert(true, "Pass")
+        let result = test()
+        XCTAssert(result, "Pass")
     }
     
     func testPerformanceExample() {
