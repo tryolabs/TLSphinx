@@ -10,6 +10,8 @@ import Foundation
 import Sphinx
 
 public func test()->Bool {
-    var a = ps_args()
+    var a:UnsafePointer<arg_t> = ps_args()
     return true
 }
+
+

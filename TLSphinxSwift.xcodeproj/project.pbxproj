@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		9B15A8B41B0E64ED006507DA /* cmdln_macro.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83A71B0CD8BA00643AE2 /* cmdln_macro.h */; };
+		9B15A8E71B0F728D006507DA /* TLSphinxDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B15A8E61B0F728D006507DA /* TLSphinxDecoder.swift */; };
+		9B15A8FF1B118FA0006507DA /* en-us in Resources */ = {isa = PBXBuildFile; fileRef = 9B15A8FE1B118FA0006507DA /* en-us */; };
 		9B4F83361B0B94C200643AE2 /* TLSphinxSwift.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83351B0B94C200643AE2 /* TLSphinxSwift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9B4F833C1B0B94C200643AE2 /* TLSphinxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B4F83301B0B94C200643AE2 /* TLSphinxSwift.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		9B4F83431B0B94C200643AE2 /* TLSphinxSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4F83421B0B94C200643AE2 /* TLSphinxSwiftTests.swift */; };
@@ -67,6 +69,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9B15A8E61B0F728D006507DA /* TLSphinxDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TLSphinxDecoder.swift; sourceTree = "<group>"; };
+		9B15A8FE1B118FA0006507DA /* en-us */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "en-us"; sourceTree = "<group>"; };
 		9B4F83301B0B94C200643AE2 /* TLSphinxSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TLSphinxSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B4F83341B0B94C200643AE2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B4F83351B0B94C200643AE2 /* TLSphinxSwift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TLSphinxSwift.h; sourceTree = "<group>"; };
@@ -138,6 +142,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9B15A8E81B118F8F006507DA /* pocketsphinx */ = {
+			isa = PBXGroup;
+			children = (
+				9B15A8E91B118F8F006507DA /* model */,
+			);
+			name = pocketsphinx;
+			path = Sphinx/share/pocketsphinx;
+			sourceTree = SOURCE_ROOT;
+		};
+		9B15A8E91B118F8F006507DA /* model */ = {
+			isa = PBXGroup;
+			children = (
+				9B15A8FE1B118FA0006507DA /* en-us */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
 		9B4F83261B0B94C100643AE2 = {
 			isa = PBXGroup;
 			children = (
@@ -162,6 +183,7 @@
 				9B4F83A51B0CD8A300643AE2 /* Sphinx */,
 				9B4F83351B0B94C200643AE2 /* TLSphinxSwift.h */,
 				9B4F84021B0CDB9300643AE2 /* TLSphinxSwift.swift */,
+				9B15A8E61B0F728D006507DA /* TLSphinxDecoder.swift */,
 				9B4F83331B0B94C200643AE2 /* Supporting Files */,
 			);
 			path = TLSphinxSwift;
@@ -187,6 +209,7 @@
 		9B4F83401B0B94C200643AE2 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9B15A8E81B118F8F006507DA /* pocketsphinx */,
 				9B4F83411B0B94C200643AE2 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -400,6 +423,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B15A8FF1B118FA0006507DA /* en-us in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -410,6 +434,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B15A8E71B0F728D006507DA /* TLSphinxDecoder.swift in Sources */,
 				9B4F84031B0CDB9300643AE2 /* TLSphinxSwift.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -632,6 +657,34 @@
 				);
 				INFOPLIST_FILE = TLSphinxSwiftTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/",
+					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/x86_64",
+					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase/x86_64",
+					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/arm64",
+					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/armv7",
+					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/armv7s",
+					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/i386",
+					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase/arm64",
+					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase/armv7",
+					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase/armv7s",
+					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase/i386",
+				);
+				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*][arch=arm64]" = (
+					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/",
+					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase/arm64",
+					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/arm64",
+				);
+				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*][arch=armv7]" = (
+					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/",
+					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase/armv7",
+					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/armv7",
+				);
+				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = (
+					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/",
+					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase/i386",
+					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/i386",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INCLUDE_PATHS = Sphinx/include;
 			};
@@ -651,6 +704,19 @@
 				);
 				INFOPLIST_FILE = TLSphinxSwiftTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/",
+					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/x86_64",
+					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase/x86_64",
+					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/arm64",
+					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/armv7",
+					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/armv7s",
+					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/i386",
+					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase/arm64",
+					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase/armv7",
+					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase/armv7s",
+					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase/i386",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INCLUDE_PATHS = Sphinx/include;
 			};

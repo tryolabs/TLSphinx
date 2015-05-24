@@ -10,22 +10,27 @@ import UIKit
 import XCTest
 import TLSphinxSwift
 
+
 class TLSphinxSwiftTests: XCTestCase {
     
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
-    
-    func testExample() {
-        // This is an example of a functional test case.
-        let result = test()
-        XCTAssert(result, "Pass")
+    func testConfig() {
+        
+        if let modelPath = NSBundle(forClass: TLSphinxSwiftTests.self).pathForResource("en-us", ofType: nil) {
+            
+            let hmm = modelPath.stringByAppendingPathComponent("en-us")
+            let lm = modelPath.stringByAppendingPathComponent("en-us.lm.dmp")
+            let dict = modelPath.stringByAppendingPathComponent("cmudict-en-us.dict")
+            
+            let c = Config(args:
+                ("-hmm", hmm),
+                ("-lm", lm),
+                ("-dict", dict))
+            
+            XCTAssert(c != nil, "Pass")
+            
+        } else {
+            XCTFail("Can't access pocketsphinx model. Bundle root: \(NSBundle.mainBundle())")
+        }
     }
     
     func testPerformanceExample() {
