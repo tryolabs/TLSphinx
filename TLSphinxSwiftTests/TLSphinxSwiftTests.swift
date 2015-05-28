@@ -13,31 +13,80 @@ import TLSphinxSwift
 
 class TLSphinxSwiftTests: XCTestCase {
     
+    func getModelPath() -> String? {
+        return NSBundle(forClass: TLSphinxSwiftTests.self).pathForResource("en-us", ofType: nil)
+    }
+    
     func testConfig() {
         
-        if let modelPath = NSBundle(forClass: TLSphinxSwiftTests.self).pathForResource("en-us", ofType: nil) {
+        if let modelPath = getModelPath() {
             
             let hmm = modelPath.stringByAppendingPathComponent("en-us")
             let lm = modelPath.stringByAppendingPathComponent("en-us.lm.dmp")
             let dict = modelPath.stringByAppendingPathComponent("cmudict-en-us.dict")
             
-            let c = Config(args:
-                ("-hmm", hmm),
-                ("-lm", lm),
-                ("-dict", dict))
+            let config = Config(args: ("-hmm", hmm), ("-lm", lm), ("-dict", dict))
             
-            XCTAssert(c != nil, "Pass")
+            XCTAssert(config != nil, "Pass")
             
         } else {
             XCTFail("Can't access pocketsphinx model. Bundle root: \(NSBundle.mainBundle())")
         }
     }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock() {
-            // Put the code you want to measure the time of here.
+    func testDecoder() {
+        
+        if let modelPath = getModelPath() {
+            
+            let hmm = modelPath.stringByAppendingPathComponent("en-us")
+            let lm = modelPath.stringByAppendingPathComponent("en-us.lm.dmp")
+            let dict = modelPath.stringByAppendingPathComponent("cmudict-en-us.dict")
+            
+            if let config = Config(args: ("-hmm", hmm), ("-lm", lm), ("-dict", dict)) {
+                let decoder = Decoder(config:config)
+                
+                XCTAssert(decoder != nil, "Pass")
+            } else {
+                XCTFail("Can't run test without a valid config")
+            }
+            
+        } else {
+            XCTFail("Can't access pocketsphinx model. Bundle root: \(NSBundle.mainBundle())")
         }
     }
     
+    func testSpeechFromFile() {
+        
+        if let modelPath = getModelPath() {
+            
+            let hmm = modelPath.stringByAppendingPathComponent("en-us")
+            let lm = modelPath.stringByAppendingPathComponent("en-us.lm.dmp")
+            let dict = modelPath.stringByAppendingPathComponent("cmudict-en-us.dict")
+            
+            if let config = Config(args: ("-hmm", hmm), ("-lm", lm), ("-dict", dict)) {
+                if let decoder = Decoder(config:config) {
+                    
+                    let audioFile = modelPath.stringByAppendingPathComponent("goforward.raw")
+                    
+                    if let hyp = decoder.decodeSpeechAtPath(audioFile) {
+                        
+                        println("Text: \(hyp.text) - Score: \(hyp.score)")
+                        XCTAssert(hyp.text == "go forward ten meters", "Pass")
+                        
+                    } else {
+                        XCTFail("Fail to decode audio")
+                    }
+                } else {
+                    XCTFail("Can't run test without a decoder")
+                }
+                
+            } else {
+                XCTFail("Can't run test without a valid config")
+            }
+            
+        } else {
+            XCTFail("Can't access pocketsphinx model. Bundle root: \(NSBundle.mainBundle())")
+        }
+        
+    }
 }

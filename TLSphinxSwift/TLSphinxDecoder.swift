@@ -9,6 +9,8 @@
 import Foundation
 import Sphinx
 
+let STrue: CInt = 1
+let SFalse: CInt = 0
 
 extension NSFileHandle {
     
@@ -34,17 +36,13 @@ public class Config {
     
     public init?(args: (String,String)...) {
         
-        // Create [UnsafeMutablePointer<Int8>] by strdup the original Strings
+        // Create [UnsafeMutablePointer<Int8>].
         var cArgs = args.flatMap { (name, value) -> [UnsafeMutablePointer<Int8>] in
+            //strdup move the strings to the heap and return a UnsageMutablePointer<Int8>
             return [strdup(name),strdup(value)]
         }
         
-        cmdLnConf = cmd_ln_parse_r(nil, ps_args(), CInt(cArgs.count), &cArgs, 1 as CInt)
-        
-        // Free the duplicated strings
-        for cString in cArgs {
-            free(cString)
-        }
+        cmdLnConf = cmd_ln_parse_r(nil, ps_args(), CInt(cArgs.count), &cArgs, STrue)
         
         if cmdLnConf == nil {
             return nil
@@ -54,13 +52,24 @@ public class Config {
 
 
 public struct Hypotesis {
-    let text: String
-    let score: Int
+    
+    public let text: String
+    public let score: Int
+    
+    func isEmpty() -> Bool {
+        return text == "" && score == 0
+    }
 }
+
+func +(lhs: Hypotesis, rhs:Hypotesis) -> Hypotesis {
+    return Hypotesis(text: lhs.text + " " + rhs.text, score: lhs.score + rhs.score)
+}
+
 
 public class Decoder {
     
-    var psDecoder: COpaquePointer
+    private var psDecoder: COpaquePointer
+    public var bufferSize: Int = 2048
     
     public init?(config : Config) {
         
@@ -77,29 +86,85 @@ public class Decoder {
         }
     }
     
+    private func process_raw(data: NSData) -> CInt {
+        //Sphinx expect words of 2 bytes but the NSFileHandle read one byte at time so the lenght of the data for sphinx is the half of the real one.
+        return ps_process_raw(psDecoder, unsafeBitCast(data.bytes, UnsafePointer<CShort>.self), data.length / 2, SFalse, SFalse)
+    }
+    
+    private func in_sppech() -> Bool {
+        return ps_get_in_speech(psDecoder) == 1
+    }
+    
+    private func start_utt() -> Bool {
+        return ps_start_utt(psDecoder) == 0
+    }
+    
+    private func end_utt() -> Bool {
+        return ps_end_utt(psDecoder) == 0
+    }
+    
+    private func get_hyp() -> Hypotesis? {
+        var score: CInt = 0
+        let string: UnsafePointer<CChar> = ps_get_hyp(psDecoder, &score)
+        
+        if let text = String.fromCString(string) {
+            return Hypotesis(text: text, score: Int(score))
+        } else {
+            return nil
+        }
+    }
+    
     public func decodeSpeechAtPath (filePath: String) -> Hypotesis? {
         
         if let fileHandle = NSFileHandle(forReadingAtPath: filePath) {
             
-            if ps_start_utt(psDecoder) != 0 {
-                return nil
-            }
+            var uttInSpeech = false
+            start_utt()
             
-            fileHandle.reduceChunks(512, initial: 0 as CInt, reducer: { (data: NSData, numberOfFrames: CInt) -> CInt in
-                return ps_process_raw(self.psDecoder, unsafeBitCast(data.bytes, UnsafePointer<CShort>.self), data.length as size_t, 0 as CInt, 0 as CInt)
-            })
-            
-            if ps_end_utt(psDecoder) == 0 {
-                var score: CInt = 0
-                if let text = String.fromCString(ps_get_hyp(psDecoder, &score)) {
-                    return Hypotesis(text: text, score: Int(score))
-                } else {
-                    return Hypotesis(text: "", score: Int(score))
+            let hypotesis = fileHandle.reduceChunks(bufferSize, initial: nil, reducer: { (data: NSData, partialHyp: Hypotesis?) -> Hypotesis? in
+                
+                self.process_raw(data)
+                
+                var resultantHyp = partialHyp
+                let inSpeech = self.in_sppech()
+                
+                if inSpeech && !uttInSpeech {
+                    uttInSpeech = true
                 }
                 
-            } else {
-                return nil
+                if !inSpeech && uttInSpeech {
+                    
+                    self.end_utt()
+                    
+                    if let newHyp = self.get_hyp() {
+                        if let previousHyp = partialHyp {
+                            resultantHyp = previousHyp + newHyp
+                        } else {
+                            resultantHyp = newHyp
+                        }
+                    }
+                    
+                    self.start_utt()
+                    uttInSpeech = false
+                }
+                
+                return resultantHyp
+            })
+            
+            end_utt()
+            fileHandle.closeFile()
+            
+            if uttInSpeech {
+                if let newHyp = get_hyp() {
+                    if let previousHyp = hypotesis {
+                        return previousHyp + newHyp
+                    } else {
+                        return newHyp
+                    }
+                }
             }
+            
+            return hypotesis
             
         } else {
             return nil
