@@ -1,14 +1,14 @@
 //
-//  TLSphinxSwiftTests.swift
-//  TLSphinxSwiftTests
+//  TLSphinxTests.swift
+//  TLSphinxTests
 //
-//  Created by Bruno Berisso on 5/19/15.
+//  Created by Bruno Berisso on 5/29/15.
 //  Copyright (c) 2015 Bruno Berisso. All rights reserved.
 //
 
 import UIKit
 import XCTest
-import TLSphinxSwift
+import TLSphinx
 
 
 class TLSphinxSwiftTests: XCTestCase {

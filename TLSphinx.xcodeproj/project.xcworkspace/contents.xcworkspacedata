@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:/Users/brunoberisso/Documents/Tryolabs/TLSphinxSwift/TLSphinx.xcodeproj">
+      location = "self:TLSphinx.xcodeproj">
    </FileRef>
 </Workspace>

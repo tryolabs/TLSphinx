@@ -7,454 +7,248 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9B15A8B41B0E64ED006507DA /* cmdln_macro.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83A71B0CD8BA00643AE2 /* cmdln_macro.h */; };
-		9B15A8E71B0F728D006507DA /* TLSphinxDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B15A8E61B0F728D006507DA /* TLSphinxDecoder.swift */; };
-		9B15A8FF1B118FA0006507DA /* en-us in Resources */ = {isa = PBXBuildFile; fileRef = 9B15A8FE1B118FA0006507DA /* en-us */; };
-		9B4F83361B0B94C200643AE2 /* TLSphinxSwift.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83351B0B94C200643AE2 /* TLSphinxSwift.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9B4F833C1B0B94C200643AE2 /* TLSphinxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B4F83301B0B94C200643AE2 /* TLSphinxSwift.framework */; settings = {ATTRIBUTES = (Required, ); }; };
-		9B4F83431B0B94C200643AE2 /* TLSphinxSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4F83421B0B94C200643AE2 /* TLSphinxSwiftTests.swift */; };
-		9B4F83D41B0CD8BA00643AE2 /* pocketsphinx.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83A81B0CD8BA00643AE2 /* pocketsphinx.h */; };
-		9B4F83D51B0CD8BA00643AE2 /* pocketsphinx_export.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83A91B0CD8BA00643AE2 /* pocketsphinx_export.h */; };
-		9B4F83D61B0CD8BA00643AE2 /* ps_lattice.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83AA1B0CD8BA00643AE2 /* ps_lattice.h */; };
-		9B4F83D71B0CD8BA00643AE2 /* ps_mllr.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83AB1B0CD8BA00643AE2 /* ps_mllr.h */; };
-		9B4F83D81B0CD8BA00643AE2 /* ps_search.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83AC1B0CD8BA00643AE2 /* ps_search.h */; };
-		9B4F83D91B0CD8BA00643AE2 /* ad.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83AE1B0CD8BA00643AE2 /* ad.h */; };
-		9B4F83DA1B0CD8BA00643AE2 /* agc.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83AF1B0CD8BA00643AE2 /* agc.h */; };
-		9B4F83DB1B0CD8BA00643AE2 /* bio.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83B01B0CD8BA00643AE2 /* bio.h */; };
-		9B4F83DC1B0CD8BA00643AE2 /* bitvec.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83B11B0CD8BA00643AE2 /* bitvec.h */; };
-		9B4F83DD1B0CD8BA00643AE2 /* byteorder.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83B21B0CD8BA00643AE2 /* byteorder.h */; };
-		9B4F83DE1B0CD8BA00643AE2 /* case.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83B31B0CD8BA00643AE2 /* case.h */; };
-		9B4F83DF1B0CD8BA00643AE2 /* ckd_alloc.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83B41B0CD8BA00643AE2 /* ckd_alloc.h */; };
-		9B4F83E01B0CD8BA00643AE2 /* clapack_lite.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83B51B0CD8BA00643AE2 /* clapack_lite.h */; };
-		9B4F83E11B0CD8BA00643AE2 /* cmd_ln.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83B61B0CD8BA00643AE2 /* cmd_ln.h */; };
-		9B4F83E21B0CD8BA00643AE2 /* cmn.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83B71B0CD8BA00643AE2 /* cmn.h */; };
-		9B4F83E31B0CD8BA00643AE2 /* err.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83B81B0CD8BA00643AE2 /* err.h */; };
-		9B4F83E41B0CD8BA00643AE2 /* f2c.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83B91B0CD8BA00643AE2 /* f2c.h */; };
-		9B4F83E51B0CD8BA00643AE2 /* fe.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83BA1B0CD8BA00643AE2 /* fe.h */; };
-		9B4F83E61B0CD8BA00643AE2 /* feat.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83BB1B0CD8BA00643AE2 /* feat.h */; };
-		9B4F83E71B0CD8BA00643AE2 /* filename.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83BC1B0CD8BA00643AE2 /* filename.h */; };
-		9B4F83E81B0CD8BA00643AE2 /* fixpoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83BD1B0CD8BA00643AE2 /* fixpoint.h */; };
-		9B4F83E91B0CD8BA00643AE2 /* fsg_model.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83BE1B0CD8BA00643AE2 /* fsg_model.h */; };
-		9B4F83EA1B0CD8BA00643AE2 /* genrand.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83BF1B0CD8BA00643AE2 /* genrand.h */; };
-		9B4F83EB1B0CD8BA00643AE2 /* glist.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83C01B0CD8BA00643AE2 /* glist.h */; };
-		9B4F83EC1B0CD8BA00643AE2 /* hash_table.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83C11B0CD8BA00643AE2 /* hash_table.h */; };
-		9B4F83ED1B0CD8BA00643AE2 /* heap.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83C21B0CD8BA00643AE2 /* heap.h */; };
-		9B4F83EE1B0CD8BA00643AE2 /* huff_code.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83C31B0CD8BA00643AE2 /* huff_code.h */; };
-		9B4F83EF1B0CD8BA00643AE2 /* jsgf.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83C41B0CD8BA00643AE2 /* jsgf.h */; };
-		9B4F83F01B0CD8BA00643AE2 /* listelem_alloc.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83C51B0CD8BA00643AE2 /* listelem_alloc.h */; };
-		9B4F83F11B0CD8BA00643AE2 /* logmath.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83C61B0CD8BA00643AE2 /* logmath.h */; };
-		9B4F83F21B0CD8BA00643AE2 /* matrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83C71B0CD8BA00643AE2 /* matrix.h */; };
-		9B4F83F31B0CD8BA00643AE2 /* mmio.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83C81B0CD8BA00643AE2 /* mmio.h */; };
-		9B4F83F41B0CD8BA00643AE2 /* mulaw.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83C91B0CD8BA00643AE2 /* mulaw.h */; };
-		9B4F83F51B0CD8BA00643AE2 /* ngram_model.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83CA1B0CD8BA00643AE2 /* ngram_model.h */; };
-		9B4F83F61B0CD8BA00643AE2 /* pio.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83CB1B0CD8BA00643AE2 /* pio.h */; };
-		9B4F83F71B0CD8BA00643AE2 /* prim_type.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83CC1B0CD8BA00643AE2 /* prim_type.h */; };
-		9B4F83F81B0CD8BA00643AE2 /* profile.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83CD1B0CD8BA00643AE2 /* profile.h */; };
-		9B4F83F91B0CD8BA00643AE2 /* sbthread.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83CE1B0CD8BA00643AE2 /* sbthread.h */; };
-		9B4F83FA1B0CD8BA00643AE2 /* sphinx_config.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83CF1B0CD8BA00643AE2 /* sphinx_config.h */; };
-		9B4F83FB1B0CD8BA00643AE2 /* sphinxbase_export.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83D01B0CD8BA00643AE2 /* sphinxbase_export.h */; };
-		9B4F83FC1B0CD8BA00643AE2 /* strfuncs.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83D11B0CD8BA00643AE2 /* strfuncs.h */; };
-		9B4F83FD1B0CD8BA00643AE2 /* yin.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83D21B0CD8BA00643AE2 /* yin.h */; };
+		9B5187B51B18E1E80000E78D /* TLSphinx.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B5187B41B18E1E80000E78D /* TLSphinx.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9B5187BB1B18E1E80000E78D /* TLSphinx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B5187AF1B18E1E80000E78D /* TLSphinx.framework */; };
+		9B5187C21B18E1E80000E78D /* TLSphinxTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5187C11B18E1E80000E78D /* TLSphinxTests.swift */; };
+		9B5187CC1B18E79B0000E78D /* Decoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5187CB1B18E79B0000E78D /* Decoder.swift */; };
+		9B5187E51B18EE280000E78D /* en-us in Resources */ = {isa = PBXBuildFile; fileRef = 9B5187E41B18EE280000E78D /* en-us */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		9B4F833D1B0B94C200643AE2 /* PBXContainerItemProxy */ = {
+		9B5187BC1B18E1E80000E78D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 9B4F83271B0B94C100643AE2 /* Project object */;
+			containerPortal = 9B5187A61B18E1E80000E78D /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 9B4F832F1B0B94C200643AE2;
-			remoteInfo = TLSphinxSwift;
+			remoteGlobalIDString = 9B5187AE1B18E1E80000E78D;
+			remoteInfo = TLSphinx;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9B15A8E61B0F728D006507DA /* TLSphinxDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TLSphinxDecoder.swift; sourceTree = "<group>"; };
-		9B15A8FE1B118FA0006507DA /* en-us */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "en-us"; sourceTree = "<group>"; };
-		9B4F83301B0B94C200643AE2 /* TLSphinxSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TLSphinxSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9B4F83341B0B94C200643AE2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9B4F83351B0B94C200643AE2 /* TLSphinxSwift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TLSphinxSwift.h; sourceTree = "<group>"; };
-		9B4F833B1B0B94C200643AE2 /* TLSphinxSwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TLSphinxSwiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		9B4F83411B0B94C200643AE2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9B4F83421B0B94C200643AE2 /* TLSphinxSwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLSphinxSwiftTests.swift; sourceTree = "<group>"; };
-		9B4F83A71B0CD8BA00643AE2 /* cmdln_macro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cmdln_macro.h; sourceTree = "<group>"; };
-		9B4F83A81B0CD8BA00643AE2 /* pocketsphinx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pocketsphinx.h; sourceTree = "<group>"; };
-		9B4F83A91B0CD8BA00643AE2 /* pocketsphinx_export.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pocketsphinx_export.h; sourceTree = "<group>"; };
-		9B4F83AA1B0CD8BA00643AE2 /* ps_lattice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ps_lattice.h; sourceTree = "<group>"; };
-		9B4F83AB1B0CD8BA00643AE2 /* ps_mllr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ps_mllr.h; sourceTree = "<group>"; };
-		9B4F83AC1B0CD8BA00643AE2 /* ps_search.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ps_search.h; sourceTree = "<group>"; };
-		9B4F83AE1B0CD8BA00643AE2 /* ad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ad.h; sourceTree = "<group>"; };
-		9B4F83AF1B0CD8BA00643AE2 /* agc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agc.h; sourceTree = "<group>"; };
-		9B4F83B01B0CD8BA00643AE2 /* bio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bio.h; sourceTree = "<group>"; };
-		9B4F83B11B0CD8BA00643AE2 /* bitvec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bitvec.h; sourceTree = "<group>"; };
-		9B4F83B21B0CD8BA00643AE2 /* byteorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = byteorder.h; sourceTree = "<group>"; };
-		9B4F83B31B0CD8BA00643AE2 /* case.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = case.h; sourceTree = "<group>"; };
-		9B4F83B41B0CD8BA00643AE2 /* ckd_alloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ckd_alloc.h; sourceTree = "<group>"; };
-		9B4F83B51B0CD8BA00643AE2 /* clapack_lite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = clapack_lite.h; sourceTree = "<group>"; };
-		9B4F83B61B0CD8BA00643AE2 /* cmd_ln.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cmd_ln.h; sourceTree = "<group>"; };
-		9B4F83B71B0CD8BA00643AE2 /* cmn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cmn.h; sourceTree = "<group>"; };
-		9B4F83B81B0CD8BA00643AE2 /* err.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = err.h; sourceTree = "<group>"; };
-		9B4F83B91B0CD8BA00643AE2 /* f2c.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = f2c.h; sourceTree = "<group>"; };
-		9B4F83BA1B0CD8BA00643AE2 /* fe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fe.h; sourceTree = "<group>"; };
-		9B4F83BB1B0CD8BA00643AE2 /* feat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = feat.h; sourceTree = "<group>"; };
-		9B4F83BC1B0CD8BA00643AE2 /* filename.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = filename.h; sourceTree = "<group>"; };
-		9B4F83BD1B0CD8BA00643AE2 /* fixpoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fixpoint.h; sourceTree = "<group>"; };
-		9B4F83BE1B0CD8BA00643AE2 /* fsg_model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fsg_model.h; sourceTree = "<group>"; };
-		9B4F83BF1B0CD8BA00643AE2 /* genrand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = genrand.h; sourceTree = "<group>"; };
-		9B4F83C01B0CD8BA00643AE2 /* glist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glist.h; sourceTree = "<group>"; };
-		9B4F83C11B0CD8BA00643AE2 /* hash_table.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hash_table.h; sourceTree = "<group>"; };
-		9B4F83C21B0CD8BA00643AE2 /* heap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = heap.h; sourceTree = "<group>"; };
-		9B4F83C31B0CD8BA00643AE2 /* huff_code.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = huff_code.h; sourceTree = "<group>"; };
-		9B4F83C41B0CD8BA00643AE2 /* jsgf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jsgf.h; sourceTree = "<group>"; };
-		9B4F83C51B0CD8BA00643AE2 /* listelem_alloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = listelem_alloc.h; sourceTree = "<group>"; };
-		9B4F83C61B0CD8BA00643AE2 /* logmath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = logmath.h; sourceTree = "<group>"; };
-		9B4F83C71B0CD8BA00643AE2 /* matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = matrix.h; sourceTree = "<group>"; };
-		9B4F83C81B0CD8BA00643AE2 /* mmio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mmio.h; sourceTree = "<group>"; };
-		9B4F83C91B0CD8BA00643AE2 /* mulaw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mulaw.h; sourceTree = "<group>"; };
-		9B4F83CA1B0CD8BA00643AE2 /* ngram_model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ngram_model.h; sourceTree = "<group>"; };
-		9B4F83CB1B0CD8BA00643AE2 /* pio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pio.h; sourceTree = "<group>"; };
-		9B4F83CC1B0CD8BA00643AE2 /* prim_type.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = prim_type.h; sourceTree = "<group>"; };
-		9B4F83CD1B0CD8BA00643AE2 /* profile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = profile.h; sourceTree = "<group>"; };
-		9B4F83CE1B0CD8BA00643AE2 /* sbthread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sbthread.h; sourceTree = "<group>"; };
-		9B4F83CF1B0CD8BA00643AE2 /* sphinx_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sphinx_config.h; sourceTree = "<group>"; };
-		9B4F83D01B0CD8BA00643AE2 /* sphinxbase_export.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sphinxbase_export.h; sourceTree = "<group>"; };
-		9B4F83D11B0CD8BA00643AE2 /* strfuncs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strfuncs.h; sourceTree = "<group>"; };
-		9B4F83D21B0CD8BA00643AE2 /* yin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = yin.h; sourceTree = "<group>"; };
+		9B5187AF1B18E1E80000E78D /* TLSphinx.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TLSphinx.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B5187B31B18E1E80000E78D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9B5187B41B18E1E80000E78D /* TLSphinx.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TLSphinx.h; sourceTree = "<group>"; };
+		9B5187BA1B18E1E80000E78D /* TLSphinxTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TLSphinxTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B5187C01B18E1E80000E78D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9B5187C11B18E1E80000E78D /* TLSphinxTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLSphinxTests.swift; sourceTree = "<group>"; };
+		9B5187CB1B18E79B0000E78D /* Decoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Decoder.swift; sourceTree = "<group>"; };
+		9B5187E41B18EE280000E78D /* en-us */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "en-us"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		9B4F832C1B0B94C200643AE2 /* Frameworks */ = {
+		9B5187AB1B18E1E80000E78D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9B4F83381B0B94C200643AE2 /* Frameworks */ = {
+		9B5187B71B18E1E80000E78D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9B4F833C1B0B94C200643AE2 /* TLSphinxSwift.framework in Frameworks */,
+				9B5187BB1B18E1E80000E78D /* TLSphinx.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		9B15A8E81B118F8F006507DA /* pocketsphinx */ = {
+		9B5187A51B18E1E80000E78D = {
 			isa = PBXGroup;
 			children = (
-				9B15A8E91B118F8F006507DA /* model */,
-			);
-			name = pocketsphinx;
-			path = Sphinx/share/pocketsphinx;
-			sourceTree = SOURCE_ROOT;
-		};
-		9B15A8E91B118F8F006507DA /* model */ = {
-			isa = PBXGroup;
-			children = (
-				9B15A8FE1B118FA0006507DA /* en-us */,
-			);
-			path = model;
-			sourceTree = "<group>";
-		};
-		9B4F83261B0B94C100643AE2 = {
-			isa = PBXGroup;
-			children = (
-				9B4F83321B0B94C200643AE2 /* TLSphinxSwift */,
-				9B4F833F1B0B94C200643AE2 /* TLSphinxSwiftTests */,
-				9B4F83311B0B94C200643AE2 /* Products */,
+				9B5187B11B18E1E80000E78D /* TLSphinx */,
+				9B5187BE1B18E1E80000E78D /* TLSphinxTests */,
+				9B5187B01B18E1E80000E78D /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		9B4F83311B0B94C200643AE2 /* Products */ = {
+		9B5187B01B18E1E80000E78D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9B4F83301B0B94C200643AE2 /* TLSphinxSwift.framework */,
-				9B4F833B1B0B94C200643AE2 /* TLSphinxSwiftTests.xctest */,
+				9B5187AF1B18E1E80000E78D /* TLSphinx.framework */,
+				9B5187BA1B18E1E80000E78D /* TLSphinxTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		9B4F83321B0B94C200643AE2 /* TLSphinxSwift */ = {
+		9B5187B11B18E1E80000E78D /* TLSphinx */ = {
 			isa = PBXGroup;
 			children = (
-				9B4F83A51B0CD8A300643AE2 /* Sphinx */,
-				9B4F83351B0B94C200643AE2 /* TLSphinxSwift.h */,
-				9B15A8E61B0F728D006507DA /* TLSphinxDecoder.swift */,
-				9B4F83331B0B94C200643AE2 /* Supporting Files */,
+				9B5187B41B18E1E80000E78D /* TLSphinx.h */,
+				9B5187CB1B18E79B0000E78D /* Decoder.swift */,
+				9B5187B21B18E1E80000E78D /* Supporting Files */,
 			);
-			path = TLSphinxSwift;
+			path = TLSphinx;
 			sourceTree = "<group>";
 		};
-		9B4F83331B0B94C200643AE2 /* Supporting Files */ = {
+		9B5187B21B18E1E80000E78D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				9B4F83341B0B94C200643AE2 /* Info.plist */,
+				9B5187B31B18E1E80000E78D /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		9B4F833F1B0B94C200643AE2 /* TLSphinxSwiftTests */ = {
+		9B5187BE1B18E1E80000E78D /* TLSphinxTests */ = {
 			isa = PBXGroup;
 			children = (
-				9B4F83421B0B94C200643AE2 /* TLSphinxSwiftTests.swift */,
-				9B4F83401B0B94C200643AE2 /* Supporting Files */,
+				9B5187C11B18E1E80000E78D /* TLSphinxTests.swift */,
+				9B5187BF1B18E1E80000E78D /* Supporting Files */,
 			);
-			path = TLSphinxSwiftTests;
+			path = TLSphinxTests;
 			sourceTree = "<group>";
 		};
-		9B4F83401B0B94C200643AE2 /* Supporting Files */ = {
+		9B5187BF1B18E1E80000E78D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				9B15A8E81B118F8F006507DA /* pocketsphinx */,
-				9B4F83411B0B94C200643AE2 /* Info.plist */,
+				9B5187CD1B18EDF40000E78D /* model */,
+				9B5187C01B18E1E80000E78D /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		9B4F83A51B0CD8A300643AE2 /* Sphinx */ = {
+		9B5187CD1B18EDF40000E78D /* model */ = {
 			isa = PBXGroup;
 			children = (
-				9B4F83A61B0CD8BA00643AE2 /* pocketsphinx */,
-				9B4F83AD1B0CD8BA00643AE2 /* sphinxbase */,
+				9B5187E41B18EE280000E78D /* en-us */,
 			);
-			name = Sphinx;
-			sourceTree = "<group>";
-		};
-		9B4F83A61B0CD8BA00643AE2 /* pocketsphinx */ = {
-			isa = PBXGroup;
-			children = (
-				9B4F83A71B0CD8BA00643AE2 /* cmdln_macro.h */,
-				9B4F83A81B0CD8BA00643AE2 /* pocketsphinx.h */,
-				9B4F83A91B0CD8BA00643AE2 /* pocketsphinx_export.h */,
-				9B4F83AA1B0CD8BA00643AE2 /* ps_lattice.h */,
-				9B4F83AB1B0CD8BA00643AE2 /* ps_mllr.h */,
-				9B4F83AC1B0CD8BA00643AE2 /* ps_search.h */,
-			);
-			name = pocketsphinx;
-			path = Sphinx/include/pocketsphinx;
-			sourceTree = SOURCE_ROOT;
-		};
-		9B4F83AD1B0CD8BA00643AE2 /* sphinxbase */ = {
-			isa = PBXGroup;
-			children = (
-				9B4F83AE1B0CD8BA00643AE2 /* ad.h */,
-				9B4F83AF1B0CD8BA00643AE2 /* agc.h */,
-				9B4F83B01B0CD8BA00643AE2 /* bio.h */,
-				9B4F83B11B0CD8BA00643AE2 /* bitvec.h */,
-				9B4F83B21B0CD8BA00643AE2 /* byteorder.h */,
-				9B4F83B31B0CD8BA00643AE2 /* case.h */,
-				9B4F83B41B0CD8BA00643AE2 /* ckd_alloc.h */,
-				9B4F83B51B0CD8BA00643AE2 /* clapack_lite.h */,
-				9B4F83B61B0CD8BA00643AE2 /* cmd_ln.h */,
-				9B4F83B71B0CD8BA00643AE2 /* cmn.h */,
-				9B4F83B81B0CD8BA00643AE2 /* err.h */,
-				9B4F83B91B0CD8BA00643AE2 /* f2c.h */,
-				9B4F83BA1B0CD8BA00643AE2 /* fe.h */,
-				9B4F83BB1B0CD8BA00643AE2 /* feat.h */,
-				9B4F83BC1B0CD8BA00643AE2 /* filename.h */,
-				9B4F83BD1B0CD8BA00643AE2 /* fixpoint.h */,
-				9B4F83BE1B0CD8BA00643AE2 /* fsg_model.h */,
-				9B4F83BF1B0CD8BA00643AE2 /* genrand.h */,
-				9B4F83C01B0CD8BA00643AE2 /* glist.h */,
-				9B4F83C11B0CD8BA00643AE2 /* hash_table.h */,
-				9B4F83C21B0CD8BA00643AE2 /* heap.h */,
-				9B4F83C31B0CD8BA00643AE2 /* huff_code.h */,
-				9B4F83C41B0CD8BA00643AE2 /* jsgf.h */,
-				9B4F83C51B0CD8BA00643AE2 /* listelem_alloc.h */,
-				9B4F83C61B0CD8BA00643AE2 /* logmath.h */,
-				9B4F83C71B0CD8BA00643AE2 /* matrix.h */,
-				9B4F83C81B0CD8BA00643AE2 /* mmio.h */,
-				9B4F83C91B0CD8BA00643AE2 /* mulaw.h */,
-				9B4F83CA1B0CD8BA00643AE2 /* ngram_model.h */,
-				9B4F83CB1B0CD8BA00643AE2 /* pio.h */,
-				9B4F83CC1B0CD8BA00643AE2 /* prim_type.h */,
-				9B4F83CD1B0CD8BA00643AE2 /* profile.h */,
-				9B4F83CE1B0CD8BA00643AE2 /* sbthread.h */,
-				9B4F83CF1B0CD8BA00643AE2 /* sphinx_config.h */,
-				9B4F83D01B0CD8BA00643AE2 /* sphinxbase_export.h */,
-				9B4F83D11B0CD8BA00643AE2 /* strfuncs.h */,
-				9B4F83D21B0CD8BA00643AE2 /* yin.h */,
-			);
-			name = sphinxbase;
-			path = Sphinx/include/sphinxbase;
+			name = model;
+			path = Sphinx/share/pocketsphinx/model;
 			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		9B4F832D1B0B94C200643AE2 /* Headers */ = {
+		9B5187AC1B18E1E80000E78D /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9B4F83361B0B94C200643AE2 /* TLSphinxSwift.h in Headers */,
-				9B4F83FC1B0CD8BA00643AE2 /* strfuncs.h in Headers */,
-				9B4F83F71B0CD8BA00643AE2 /* prim_type.h in Headers */,
-				9B4F83EA1B0CD8BA00643AE2 /* genrand.h in Headers */,
-				9B4F83F01B0CD8BA00643AE2 /* listelem_alloc.h in Headers */,
-				9B4F83F21B0CD8BA00643AE2 /* matrix.h in Headers */,
-				9B15A8B41B0E64ED006507DA /* cmdln_macro.h in Headers */,
-				9B4F83E31B0CD8BA00643AE2 /* err.h in Headers */,
-				9B4F83DE1B0CD8BA00643AE2 /* case.h in Headers */,
-				9B4F83E01B0CD8BA00643AE2 /* clapack_lite.h in Headers */,
-				9B4F83DC1B0CD8BA00643AE2 /* bitvec.h in Headers */,
-				9B4F83FD1B0CD8BA00643AE2 /* yin.h in Headers */,
-				9B4F83F41B0CD8BA00643AE2 /* mulaw.h in Headers */,
-				9B4F83D51B0CD8BA00643AE2 /* pocketsphinx_export.h in Headers */,
-				9B4F83ED1B0CD8BA00643AE2 /* heap.h in Headers */,
-				9B4F83E61B0CD8BA00643AE2 /* feat.h in Headers */,
-				9B4F83E81B0CD8BA00643AE2 /* fixpoint.h in Headers */,
-				9B4F83F11B0CD8BA00643AE2 /* logmath.h in Headers */,
-				9B4F83E71B0CD8BA00643AE2 /* filename.h in Headers */,
-				9B4F83E91B0CD8BA00643AE2 /* fsg_model.h in Headers */,
-				9B4F83E21B0CD8BA00643AE2 /* cmn.h in Headers */,
-				9B4F83F61B0CD8BA00643AE2 /* pio.h in Headers */,
-				9B4F83EC1B0CD8BA00643AE2 /* hash_table.h in Headers */,
-				9B4F83E41B0CD8BA00643AE2 /* f2c.h in Headers */,
-				9B4F83D71B0CD8BA00643AE2 /* ps_mllr.h in Headers */,
-				9B4F83DF1B0CD8BA00643AE2 /* ckd_alloc.h in Headers */,
-				9B4F83EE1B0CD8BA00643AE2 /* huff_code.h in Headers */,
-				9B4F83F81B0CD8BA00643AE2 /* profile.h in Headers */,
-				9B4F83D61B0CD8BA00643AE2 /* ps_lattice.h in Headers */,
-				9B4F83F31B0CD8BA00643AE2 /* mmio.h in Headers */,
-				9B4F83EF1B0CD8BA00643AE2 /* jsgf.h in Headers */,
-				9B4F83FA1B0CD8BA00643AE2 /* sphinx_config.h in Headers */,
-				9B4F83F51B0CD8BA00643AE2 /* ngram_model.h in Headers */,
-				9B4F83E11B0CD8BA00643AE2 /* cmd_ln.h in Headers */,
-				9B4F83EB1B0CD8BA00643AE2 /* glist.h in Headers */,
-				9B4F83DA1B0CD8BA00643AE2 /* agc.h in Headers */,
-				9B4F83D81B0CD8BA00643AE2 /* ps_search.h in Headers */,
-				9B4F83E51B0CD8BA00643AE2 /* fe.h in Headers */,
-				9B4F83F91B0CD8BA00643AE2 /* sbthread.h in Headers */,
-				9B4F83FB1B0CD8BA00643AE2 /* sphinxbase_export.h in Headers */,
-				9B4F83D91B0CD8BA00643AE2 /* ad.h in Headers */,
-				9B4F83DB1B0CD8BA00643AE2 /* bio.h in Headers */,
-				9B4F83DD1B0CD8BA00643AE2 /* byteorder.h in Headers */,
-				9B4F83D41B0CD8BA00643AE2 /* pocketsphinx.h in Headers */,
+				9B5187B51B18E1E80000E78D /* TLSphinx.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		9B4F832F1B0B94C200643AE2 /* TLSphinxSwift */ = {
+		9B5187AE1B18E1E80000E78D /* TLSphinx */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9B4F83461B0B94C200643AE2 /* Build configuration list for PBXNativeTarget "TLSphinxSwift" */;
+			buildConfigurationList = 9B5187C51B18E1E80000E78D /* Build configuration list for PBXNativeTarget "TLSphinx" */;
 			buildPhases = (
-				9B4F832B1B0B94C200643AE2 /* Sources */,
-				9B4F832C1B0B94C200643AE2 /* Frameworks */,
-				9B4F832D1B0B94C200643AE2 /* Headers */,
-				9B4F832E1B0B94C200643AE2 /* Resources */,
+				9B5187AA1B18E1E80000E78D /* Sources */,
+				9B5187AB1B18E1E80000E78D /* Frameworks */,
+				9B5187AC1B18E1E80000E78D /* Headers */,
+				9B5187AD1B18E1E80000E78D /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = TLSphinxSwift;
-			productName = TLSphinxSwift;
-			productReference = 9B4F83301B0B94C200643AE2 /* TLSphinxSwift.framework */;
+			name = TLSphinx;
+			productName = TLSphinx;
+			productReference = 9B5187AF1B18E1E80000E78D /* TLSphinx.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		9B4F833A1B0B94C200643AE2 /* TLSphinxSwiftTests */ = {
+		9B5187B91B18E1E80000E78D /* TLSphinxTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9B4F83491B0B94C200643AE2 /* Build configuration list for PBXNativeTarget "TLSphinxSwiftTests" */;
+			buildConfigurationList = 9B5187C81B18E1E80000E78D /* Build configuration list for PBXNativeTarget "TLSphinxTests" */;
 			buildPhases = (
-				9B4F83371B0B94C200643AE2 /* Sources */,
-				9B4F83381B0B94C200643AE2 /* Frameworks */,
-				9B4F83391B0B94C200643AE2 /* Resources */,
+				9B5187B61B18E1E80000E78D /* Sources */,
+				9B5187B71B18E1E80000E78D /* Frameworks */,
+				9B5187B81B18E1E80000E78D /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				9B4F833E1B0B94C200643AE2 /* PBXTargetDependency */,
+				9B5187BD1B18E1E80000E78D /* PBXTargetDependency */,
 			);
-			name = TLSphinxSwiftTests;
-			productName = TLSphinxSwiftTests;
-			productReference = 9B4F833B1B0B94C200643AE2 /* TLSphinxSwiftTests.xctest */;
+			name = TLSphinxTests;
+			productName = TLSphinxTests;
+			productReference = 9B5187BA1B18E1E80000E78D /* TLSphinxTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		9B4F83271B0B94C100643AE2 /* Project object */ = {
+		9B5187A61B18E1E80000E78D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = "Bruno Berisso";
 				TargetAttributes = {
-					9B4F832F1B0B94C200643AE2 = {
-						CreatedOnToolsVersion = 6.3.1;
+					9B5187AE1B18E1E80000E78D = {
+						CreatedOnToolsVersion = 6.3.2;
 					};
-					9B4F833A1B0B94C200643AE2 = {
-						CreatedOnToolsVersion = 6.3.1;
+					9B5187B91B18E1E80000E78D = {
+						CreatedOnToolsVersion = 6.3.2;
 					};
 				};
 			};
-			buildConfigurationList = 9B4F832A1B0B94C200643AE2 /* Build configuration list for PBXProject "TLSphinx" */;
+			buildConfigurationList = 9B5187A91B18E1E80000E78D /* Build configuration list for PBXProject "TLSphinx" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = 9B4F83261B0B94C100643AE2;
-			productRefGroup = 9B4F83311B0B94C200643AE2 /* Products */;
+			mainGroup = 9B5187A51B18E1E80000E78D;
+			productRefGroup = 9B5187B01B18E1E80000E78D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				9B4F832F1B0B94C200643AE2 /* TLSphinxSwift */,
-				9B4F833A1B0B94C200643AE2 /* TLSphinxSwiftTests */,
+				9B5187AE1B18E1E80000E78D /* TLSphinx */,
+				9B5187B91B18E1E80000E78D /* TLSphinxTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		9B4F832E1B0B94C200643AE2 /* Resources */ = {
+		9B5187AD1B18E1E80000E78D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9B4F83391B0B94C200643AE2 /* Resources */ = {
+		9B5187B81B18E1E80000E78D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9B15A8FF1B118FA0006507DA /* en-us in Resources */,
+				9B5187E51B18EE280000E78D /* en-us in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		9B4F832B1B0B94C200643AE2 /* Sources */ = {
+		9B5187AA1B18E1E80000E78D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9B15A8E71B0F728D006507DA /* TLSphinxDecoder.swift in Sources */,
+				9B5187CC1B18E79B0000E78D /* Decoder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9B4F83371B0B94C200643AE2 /* Sources */ = {
+		9B5187B61B18E1E80000E78D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9B4F83431B0B94C200643AE2 /* TLSphinxSwiftTests.swift in Sources */,
+				9B5187C21B18E1E80000E78D /* TLSphinxTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		9B4F833E1B0B94C200643AE2 /* PBXTargetDependency */ = {
+		9B5187BD1B18E1E80000E78D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 9B4F832F1B0B94C200643AE2 /* TLSphinxSwift */;
-			targetProxy = 9B4F833D1B0B94C200643AE2 /* PBXContainerItemProxy */;
+			target = 9B5187AE1B18E1E80000E78D /* TLSphinx */;
+			targetProxy = 9B5187BC1B18E1E80000E78D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		9B4F83441B0B94C200643AE2 /* Debug */ = {
+		9B5187C31B18E1E80000E78D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -502,7 +296,7 @@
 			};
 			name = Debug;
 		};
-		9B4F83451B0B94C200643AE2 /* Release */ = {
+		9B5187C41B18E1E80000E78D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -543,104 +337,64 @@
 			};
 			name = Release;
 		};
-		9B4F83471B0B94C200643AE2 /* Debug */ = {
+		9B5187C61B18E1E80000E78D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
-				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_MODULES = YES;
-				CLANG_MODULES_AUTOLINK = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				HEADER_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/Sphinx/include/**",
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(PROJECT_DIR)/Sphinx/include/**",
 				);
-				INFOPLIST_FILE = TLSphinxSwift/Info.plist;
+				INFOPLIST_FILE = TLSphinx/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/",
-					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/x86_64",
-					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase/x86_64",
-					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/arm64",
-					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/armv7",
-					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/armv7s",
-					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/i386",
-					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase/arm64",
-					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase/armv7",
-					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase/armv7s",
-					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase/i386",
-				);
-				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*][arch=arm64]" = (
-					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/",
-					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase/arm64",
-					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/arm64",
-				);
-				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*][arch=armv7]" = (
-					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/",
-					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase/armv7",
-					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/armv7",
-				);
-				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = (
-					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/",
-					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase/i386",
-					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/i386",
+					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx",
+					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_INCLUDE_PATHS = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_INCLUDE_PATHS = Sphinx/include;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
-		9B4F83481B0B94C200643AE2 /* Release */ = {
+		9B5187C71B18E1E80000E78D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
-				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_MODULES = YES;
-				CLANG_MODULES_AUTOLINK = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				HEADER_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/Sphinx/include/**",
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(PROJECT_DIR)/Sphinx/include/**",
 				);
-				INFOPLIST_FILE = TLSphinxSwift/Info.plist;
+				INFOPLIST_FILE = TLSphinx/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/",
-					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/x86_64",
-					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase/x86_64",
-					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/arm64",
-					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/armv7",
-					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/armv7s",
-					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/i386",
-					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase/arm64",
-					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase/armv7",
-					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase/armv7s",
-					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase/i386",
+					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx",
+					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_INCLUDE_PATHS = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_INCLUDE_PATHS = Sphinx/include;
 			};
 			name = Release;
 		};
-		9B4F834A1B0B94C200643AE2 /* Debug */ = {
+		9B5187C91B18E1E80000E78D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -650,109 +404,71 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/Sphinx/include/**",
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(PROJECT_DIR)/Sphinx/include/**",
 				);
-				INFOPLIST_FILE = TLSphinxSwiftTests/Info.plist;
+				INFOPLIST_FILE = TLSphinxTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/",
-					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/x86_64",
-					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase/x86_64",
-					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/arm64",
-					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/armv7",
-					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/armv7s",
-					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/i386",
-					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase/arm64",
-					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase/armv7",
-					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase/armv7s",
-					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase/i386",
-				);
-				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*][arch=arm64]" = (
-					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/",
-					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase/arm64",
-					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/arm64",
-				);
-				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*][arch=armv7]" = (
-					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/",
-					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase/armv7",
-					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/armv7",
-				);
-				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = (
-					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/",
-					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase/i386",
-					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/i386",
+					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx",
+					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_INCLUDE_PATHS = Sphinx/include;
 			};
 			name = Debug;
 		};
-		9B4F834B1B0B94C200643AE2 /* Release */ = {
+		9B5187CA1B18E1E80000E78D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/Sphinx/include/**",
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(PROJECT_DIR)/Sphinx/include/**",
 				);
-				INFOPLIST_FILE = TLSphinxSwiftTests/Info.plist;
+				INFOPLIST_FILE = TLSphinxTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/",
-					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/x86_64",
-					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase/x86_64",
-					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/arm64",
-					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/armv7",
-					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/armv7s",
-					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx/i386",
-					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase/arm64",
-					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase/armv7",
-					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase/armv7s",
-					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase/i386",
+					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx",
+					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_INCLUDE_PATHS = Sphinx/include;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		9B4F832A1B0B94C200643AE2 /* Build configuration list for PBXProject "TLSphinx" */ = {
+		9B5187A91B18E1E80000E78D /* Build configuration list for PBXProject "TLSphinx" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				9B4F83441B0B94C200643AE2 /* Debug */,
-				9B4F83451B0B94C200643AE2 /* Release */,
+				9B5187C31B18E1E80000E78D /* Debug */,
+				9B5187C41B18E1E80000E78D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9B4F83461B0B94C200643AE2 /* Build configuration list for PBXNativeTarget "TLSphinxSwift" */ = {
+		9B5187C51B18E1E80000E78D /* Build configuration list for PBXNativeTarget "TLSphinx" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				9B4F83471B0B94C200643AE2 /* Debug */,
-				9B4F83481B0B94C200643AE2 /* Release */,
+				9B5187C61B18E1E80000E78D /* Debug */,
+				9B5187C71B18E1E80000E78D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
 		};
-		9B4F83491B0B94C200643AE2 /* Build configuration list for PBXNativeTarget "TLSphinxSwiftTests" */ = {
+		9B5187C81B18E1E80000E78D /* Build configuration list for PBXNativeTarget "TLSphinxTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				9B4F834A1B0B94C200643AE2 /* Debug */,
-				9B4F834B1B0B94C200643AE2 /* Release */,
+				9B5187C91B18E1E80000E78D /* Debug */,
+				9B5187CA1B18E1E80000E78D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 9B4F83271B0B94C100643AE2 /* Project object */;
+	rootObject = 9B5187A61B18E1E80000E78D /* Project object */;
 }

@@ -1,8 +1,8 @@
 //
-//  TLSphinxDecoder.swift
-//  TLSphinxSwift
+//  Decoder.swift
+//  TLSphinx
 //
-//  Created by Bruno Berisso on 5/22/15.
+//  Created by Bruno Berisso on 5/29/15.
 //  Copyright (c) 2015 Bruno Berisso. All rights reserved.
 //
 
