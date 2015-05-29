@@ -9,47 +9,6 @@
 import Foundation
 import Sphinx
 
-let STrue: CInt = 1
-let SFalse: CInt = 0
-
-extension NSFileHandle {
-    
-    func reduceChunks<T>(size: Int, initial: T, reducer: (NSData, T) -> T) -> T {
-        
-        var reduceValue = initial
-        var chuckData = readDataOfLength(size)
-        
-        while chuckData.length > 0 {
-            reduceValue = reducer(chuckData, reduceValue)
-            chuckData = readDataOfLength(size)
-        }
-        
-        return reduceValue
-    }
-    
-}
-
-
-public class Config {
-    
-    var cmdLnConf: COpaquePointer
-    
-    public init?(args: (String,String)...) {
-        
-        // Create [UnsafeMutablePointer<Int8>].
-        var cArgs = args.flatMap { (name, value) -> [UnsafeMutablePointer<Int8>] in
-            //strdup move the strings to the heap and return a UnsageMutablePointer<Int8>
-            return [strdup(name),strdup(value)]
-        }
-        
-        cmdLnConf = cmd_ln_parse_r(nil, ps_args(), CInt(cArgs.count), &cArgs, STrue)
-        
-        if cmdLnConf == nil {
-            return nil
-        }
-    }
-}
-
 
 public struct Hypotesis {
     
@@ -83,7 +42,7 @@ public class Decoder {
     private var psDecoder: COpaquePointer
     public var bufferSize: Int = 2048
     
-    public init?(config : Config) {
+    public init?(config: Config) {
         
         if config.cmdLnConf != nil{
             psDecoder = ps_init(config.cmdLnConf)

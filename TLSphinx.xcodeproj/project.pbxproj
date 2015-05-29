@@ -9,9 +9,12 @@
 /* Begin PBXBuildFile section */
 		9B5187B51B18E1E80000E78D /* TLSphinx.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B5187B41B18E1E80000E78D /* TLSphinx.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9B5187BB1B18E1E80000E78D /* TLSphinx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B5187AF1B18E1E80000E78D /* TLSphinx.framework */; };
-		9B5187C21B18E1E80000E78D /* TLSphinxTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5187C11B18E1E80000E78D /* TLSphinxTests.swift */; };
+		9B5187C21B18E1E80000E78D /* Basic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5187C11B18E1E80000E78D /* Basic.swift */; };
 		9B5187CC1B18E79B0000E78D /* Decoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5187CB1B18E79B0000E78D /* Decoder.swift */; };
 		9B5187E51B18EE280000E78D /* en-us in Resources */ = {isa = PBXBuildFile; fileRef = 9B5187E41B18EE280000E78D /* en-us */; };
+		9B5187E71B18F0D40000E78D /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5187E61B18F0D40000E78D /* Config.swift */; };
+		9B5187E91B18F1A50000E78D /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5187E81B18F1A50000E78D /* Globals.swift */; };
+		9B5187EB1B19011B0000E78D /* LiveDecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5187EA1B19011B0000E78D /* LiveDecode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,9 +33,12 @@
 		9B5187B41B18E1E80000E78D /* TLSphinx.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TLSphinx.h; sourceTree = "<group>"; };
 		9B5187BA1B18E1E80000E78D /* TLSphinxTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TLSphinxTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B5187C01B18E1E80000E78D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9B5187C11B18E1E80000E78D /* TLSphinxTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLSphinxTests.swift; sourceTree = "<group>"; };
+		9B5187C11B18E1E80000E78D /* Basic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Basic.swift; sourceTree = "<group>"; };
 		9B5187CB1B18E79B0000E78D /* Decoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Decoder.swift; sourceTree = "<group>"; };
 		9B5187E41B18EE280000E78D /* en-us */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "en-us"; sourceTree = "<group>"; };
+		9B5187E61B18F0D40000E78D /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		9B5187E81B18F1A50000E78D /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
+		9B5187EA1B19011B0000E78D /* LiveDecode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveDecode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,9 +81,10 @@
 		9B5187B11B18E1E80000E78D /* TLSphinx */ = {
 			isa = PBXGroup;
 			children = (
-				9B5187B41B18E1E80000E78D /* TLSphinx.h */,
-				9B5187CB1B18E79B0000E78D /* Decoder.swift */,
 				9B5187B21B18E1E80000E78D /* Supporting Files */,
+				9B5187CB1B18E79B0000E78D /* Decoder.swift */,
+				9B5187E81B18F1A50000E78D /* Globals.swift */,
+				9B5187E61B18F0D40000E78D /* Config.swift */,
 			);
 			path = TLSphinx;
 			sourceTree = "<group>";
@@ -85,6 +92,7 @@
 		9B5187B21B18E1E80000E78D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9B5187B41B18E1E80000E78D /* TLSphinx.h */,
 				9B5187B31B18E1E80000E78D /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -93,8 +101,9 @@
 		9B5187BE1B18E1E80000E78D /* TLSphinxTests */ = {
 			isa = PBXGroup;
 			children = (
-				9B5187C11B18E1E80000E78D /* TLSphinxTests.swift */,
 				9B5187BF1B18E1E80000E78D /* Supporting Files */,
+				9B5187C11B18E1E80000E78D /* Basic.swift */,
+				9B5187EA1B19011B0000E78D /* LiveDecode.swift */,
 			);
 			path = TLSphinxTests;
 			sourceTree = "<group>";
@@ -226,6 +235,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				9B5187CC1B18E79B0000E78D /* Decoder.swift in Sources */,
+				9B5187E91B18F1A50000E78D /* Globals.swift in Sources */,
+				9B5187E71B18F0D40000E78D /* Config.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,7 +244,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9B5187C21B18E1E80000E78D /* TLSphinxTests.swift in Sources */,
+				9B5187C21B18E1E80000E78D /* Basic.swift in Sources */,
+				9B5187EB1B19011B0000E78D /* LiveDecode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -459,6 +471,7 @@
 				9B5187C71B18E1E80000E78D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9B5187C81B18E1E80000E78D /* Build configuration list for PBXNativeTarget "TLSphinxTests" */ = {
 			isa = XCConfigurationList;
@@ -467,6 +480,7 @@
 				9B5187CA1B18E1E80000E78D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
