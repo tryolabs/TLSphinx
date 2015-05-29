@@ -61,8 +61,20 @@ public struct Hypotesis {
     }
 }
 
-func +(lhs: Hypotesis, rhs:Hypotesis) -> Hypotesis {
+func +(lhs: Hypotesis, rhs: Hypotesis) -> Hypotesis {
     return Hypotesis(text: lhs.text + " " + rhs.text, score: lhs.score + rhs.score)
+}
+
+func +(lhs: Hypotesis?, rhs: Hypotesis?) -> Hypotesis? {
+    if let _lhs = lhs, let _rhs = rhs {
+        return _lhs + _rhs
+    } else {
+        if let _lhs = lhs {
+            return _lhs
+        } else {
+            return rhs
+        }
+    }
 }
 
 
@@ -88,7 +100,9 @@ public class Decoder {
     
     private func process_raw(data: NSData) -> CInt {
         //Sphinx expect words of 2 bytes but the NSFileHandle read one byte at time so the lenght of the data for sphinx is the half of the real one.
-        return ps_process_raw(psDecoder, unsafeBitCast(data.bytes, UnsafePointer<CShort>.self), data.length / 2, SFalse, SFalse)
+        let dataLenght = data.length <= 1 ? 1 : data.length / 2
+        
+        return ps_process_raw(psDecoder, UnsafePointer(data.bytes), dataLenght, SFalse, SFalse)
     }
     
     private func in_sppech() -> Bool {
@@ -114,10 +128,11 @@ public class Decoder {
         }
     }
     
-    public func decodeSpeechAtPath (filePath: String) -> Hypotesis? {
+    private func hypotesisForSpeechAtPath (filePath: String) -> Hypotesis? {
         
         if let fileHandle = NSFileHandle(forReadingAtPath: filePath) {
             
+            //uttInSpeech flag when there are actual speech detected in the audio.
             var uttInSpeech = false
             start_utt()
             
@@ -132,17 +147,11 @@ public class Decoder {
                     uttInSpeech = true
                 }
                 
+                //If there is no speech and we detect speech before get an hypotesis
                 if !inSpeech && uttInSpeech {
                     
                     self.end_utt()
-                    
-                    if let newHyp = self.get_hyp() {
-                        if let previousHyp = partialHyp {
-                            resultantHyp = previousHyp + newHyp
-                        } else {
-                            resultantHyp = newHyp
-                        }
-                    }
+                    resultantHyp = partialHyp + self.get_hyp()
                     
                     self.start_utt()
                     uttInSpeech = false
@@ -154,20 +163,27 @@ public class Decoder {
             end_utt()
             fileHandle.closeFile()
             
+            //Process any pending speech
             if uttInSpeech {
-                if let newHyp = get_hyp() {
-                    if let previousHyp = hypotesis {
-                        return previousHyp + newHyp
-                    } else {
-                        return newHyp
-                    }
-                }
+                return hypotesis + get_hyp()
+            } else {
+                return hypotesis
             }
-            
-            return hypotesis
             
         } else {
             return nil
+        }
+    }
+    
+    public func decodeSpeechAtPath (filePath: String, complete: (Hypotesis?) -> ()) {
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+            
+            let hypotesis = self.hypotesisForSpeechAtPath(filePath)
+            
+            dispatch_async(dispatch_get_main_queue()) {
+                complete(hypotesis)
+            }
         }
         
     }

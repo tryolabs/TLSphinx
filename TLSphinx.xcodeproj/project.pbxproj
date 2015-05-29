@@ -55,7 +55,6 @@
 		9B4F83FB1B0CD8BA00643AE2 /* sphinxbase_export.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83D01B0CD8BA00643AE2 /* sphinxbase_export.h */; };
 		9B4F83FC1B0CD8BA00643AE2 /* strfuncs.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83D11B0CD8BA00643AE2 /* strfuncs.h */; };
 		9B4F83FD1B0CD8BA00643AE2 /* yin.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4F83D21B0CD8BA00643AE2 /* yin.h */; };
-		9B4F84031B0CDB9300643AE2 /* TLSphinxSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4F84021B0CDB9300643AE2 /* TLSphinxSwift.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,7 +119,6 @@
 		9B4F83D01B0CD8BA00643AE2 /* sphinxbase_export.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sphinxbase_export.h; sourceTree = "<group>"; };
 		9B4F83D11B0CD8BA00643AE2 /* strfuncs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strfuncs.h; sourceTree = "<group>"; };
 		9B4F83D21B0CD8BA00643AE2 /* yin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = yin.h; sourceTree = "<group>"; };
-		9B4F84021B0CDB9300643AE2 /* TLSphinxSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TLSphinxSwift.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,7 +180,6 @@
 			children = (
 				9B4F83A51B0CD8A300643AE2 /* Sphinx */,
 				9B4F83351B0B94C200643AE2 /* TLSphinxSwift.h */,
-				9B4F84021B0CDB9300643AE2 /* TLSphinxSwift.swift */,
 				9B15A8E61B0F728D006507DA /* TLSphinxDecoder.swift */,
 				9B4F83331B0B94C200643AE2 /* Supporting Files */,
 			);
@@ -393,7 +390,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 9B4F832A1B0B94C200643AE2 /* Build configuration list for PBXProject "TLSphinxSwift" */;
+			buildConfigurationList = 9B4F832A1B0B94C200643AE2 /* Build configuration list for PBXProject "TLSphinx" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -435,7 +432,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9B15A8E71B0F728D006507DA /* TLSphinxDecoder.swift in Sources */,
-				9B4F84031B0CDB9300643AE2 /* TLSphinxSwift.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -729,7 +725,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		9B4F832A1B0B94C200643AE2 /* Build configuration list for PBXProject "TLSphinxSwift" */ = {
+		9B4F832A1B0B94C200643AE2 /* Build configuration list for PBXProject "TLSphinx" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9B4F83441B0B94C200643AE2 /* Debug */,

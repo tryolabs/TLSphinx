@@ -68,14 +68,25 @@ class TLSphinxSwiftTests: XCTestCase {
                     
                     let audioFile = modelPath.stringByAppendingPathComponent("goforward.raw")
                     
-                    if let hyp = decoder.decodeSpeechAtPath(audioFile) {
+                    let expectation = expectationWithDescription("Decode finish")
+                    decoder.decodeSpeechAtPath(audioFile) {
                         
-                        println("Text: \(hyp.text) - Score: \(hyp.score)")
-                        XCTAssert(hyp.text == "go forward ten meters", "Pass")
+                        if let hyp = $0 {
+                            
+                            println("Text: \(hyp.text) - Score: \(hyp.score)")
+                            XCTAssert(hyp.text == "go forward ten meters", "Pass")
+                            
+                        } else {
+                            XCTFail("Fail to decode audio")
+                        }
                         
-                    } else {
-                        XCTFail("Fail to decode audio")
+                        expectation.fulfill()
                     }
+                    
+                    waitForExpectationsWithTimeout(NSTimeIntervalSince1970, handler: { (_) -> Void in
+                        
+                    })
+                    
                 } else {
                     XCTFail("Can't run test without a decoder")
                 }
