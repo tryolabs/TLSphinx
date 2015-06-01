@@ -11,10 +11,10 @@ import XCTest
 import TLSphinx
 
 
-class TLSphinxSwiftTests: XCTestCase {
+class BasicTests: XCTestCase {
     
     func getModelPath() -> String? {
-        return NSBundle(forClass: TLSphinxSwiftTests.self).pathForResource("en-us", ofType: nil)
+        return NSBundle(forClass: BasicTests.self).pathForResource("en-us", ofType: nil)
     }
     
     func testConfig() {
@@ -67,8 +67,8 @@ class TLSphinxSwiftTests: XCTestCase {
                 if let decoder = Decoder(config:config) {
                     
                     let audioFile = modelPath.stringByAppendingPathComponent("goforward.raw")
-                    
                     let expectation = expectationWithDescription("Decode finish")
+                    
                     decoder.decodeSpeechAtPath(audioFile) {
                         
                         if let hyp = $0 {

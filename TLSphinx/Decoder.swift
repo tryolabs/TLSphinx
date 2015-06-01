@@ -9,32 +9,10 @@
 import Foundation
 import Sphinx
 
-
-public struct Hypotesis {
-    public let text: String
-    public let score: Int
-}
-
-func +(lhs: Hypotesis, rhs: Hypotesis) -> Hypotesis {
-    return Hypotesis(text: lhs.text + " " + rhs.text, score: (lhs.score + rhs.score) / 2)
-}
-
-func +(lhs: Hypotesis?, rhs: Hypotesis?) -> Hypotesis? {
-    if let _lhs = lhs, let _rhs = rhs {
-        return _lhs + _rhs
-    } else {
-        if let _lhs = lhs {
-            return _lhs
-        } else {
-            return rhs
-        }
-    }
-}
-
-
 public class Decoder {
     
     private var psDecoder: COpaquePointer
+    
     public var bufferSize: Int = 2048
     
     public init?(config: Config) {
