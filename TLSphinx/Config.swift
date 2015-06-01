@@ -36,4 +36,24 @@ public class Config {
         
         cmd_ln_free_r(cmdLnConf)
     }
+    
+    
+    var showDebugInfo: Bool {
+        get {
+            if cmdLnConf != nil {
+                return cmd_ln_str_r(cmdLnConf, "-logfn") == nil
+            } else {
+                return false
+            }
+        }
+        set {
+            if cmdLnConf != nil {
+                if newValue {
+                    cmd_ln_set_str_r(cmdLnConf, "-logfn", nil)
+                } else {
+                    cmd_ln_set_str_r(cmdLnConf, "-logfn", "/dev/null")
+                }
+            }
+        }
+    }
 }

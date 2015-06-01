@@ -11,17 +11,12 @@ import Sphinx
 
 
 public struct Hypotesis {
-    
     public let text: String
     public let score: Int
-    
-    func isEmpty() -> Bool {
-        return text == "" && score == 0
-    }
 }
 
 func +(lhs: Hypotesis, rhs: Hypotesis) -> Hypotesis {
-    return Hypotesis(text: lhs.text + " " + rhs.text, score: lhs.score + rhs.score)
+    return Hypotesis(text: lhs.text + " " + rhs.text, score: (lhs.score + rhs.score) / 2)
 }
 
 func +(lhs: Hypotesis?, rhs: Hypotesis?) -> Hypotesis? {
@@ -63,8 +58,7 @@ public class Decoder {
     
     private func process_raw(data: NSData) -> CInt {
         //Sphinx expect words of 2 bytes but the NSFileHandle read one byte at time so the lenght of the data for sphinx is the half of the real one.
-        let dataLenght = data.length <= 1 ? 1 : data.length / 2
-        
+        let dataLenght = data.length / 2
         return ps_process_raw(psDecoder, UnsafePointer(data.bytes), dataLenght, SFalse, SFalse)
     }
     
