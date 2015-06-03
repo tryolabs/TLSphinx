@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import Sphinx
+import Sphinx.Base
 
 public class Config {
     
@@ -38,7 +38,7 @@ public class Config {
     }
     
     
-    var showDebugInfo: Bool {
+    public var showDebugInfo: Bool {
         get {
             if cmdLnConf != nil {
                 return cmd_ln_str_r(cmdLnConf, "-logfn") == nil

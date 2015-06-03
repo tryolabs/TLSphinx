@@ -7,15 +7,39 @@
 //
 
 import Foundation
+import AVFoundation
 import Sphinx
+
+private enum SpeechStateEnum : Printable {
+    case Silence
+    case Speech
+    case Utterance
+    
+    var description: String {
+        get {
+            switch(self) {
+            case .Silence:
+                return "Silence"
+            case .Speech:
+                return "Speech"
+            case .Utterance:
+                return "Utterance"
+            }
+        }
+    }
+}
 
 public class Decoder {
     
     private var psDecoder: COpaquePointer
+    private var recorder: AVAudioRecorder!
+    private var speechState: SpeechStateEnum
     
     public var bufferSize: Int = 2048
     
     public init?(config: Config) {
+        
+        speechState = .Silence
         
         if config.cmdLnConf != nil{
             psDecoder = ps_init(config.cmdLnConf)
@@ -34,10 +58,25 @@ public class Decoder {
         assert(ps_free(psDecoder) == 0, "Can't free decoder, it's shared among instances")
     }
     
+    
     private func process_raw(data: NSData) -> CInt {
         //Sphinx expect words of 2 bytes but the NSFileHandle read one byte at time so the lenght of the data for sphinx is the half of the real one.
         let dataLenght = data.length / 2
-        return ps_process_raw(psDecoder, UnsafePointer(data.bytes), dataLenght, SFalse, SFalse)
+        let numberOfFrames = ps_process_raw(psDecoder, UnsafePointer(data.bytes), dataLenght, SFalse, SFalse)
+        let hasSpeech = in_sppech()
+        
+        switch (speechState) {
+        case .Silence where hasSpeech:
+            speechState = .Speech
+        case .Speech where !hasSpeech:
+            speechState = .Utterance
+        case .Utterance where !hasSpeech:
+            speechState = .Silence
+        default:
+            break
+        }
+        
+        return numberOfFrames
     }
     
     private func in_sppech() -> Bool {
@@ -67,8 +106,6 @@ public class Decoder {
         
         if let fileHandle = NSFileHandle(forReadingAtPath: filePath) {
             
-            //uttInSpeech flag when there are actual speech detected in the audio.
-            var uttInSpeech = false
             start_utt()
             
             let hypotesis = fileHandle.reduceChunks(bufferSize, initial: nil, reducer: { (data: NSData, partialHyp: Hypotesis?) -> Hypotesis? in
@@ -76,20 +113,11 @@ public class Decoder {
                 self.process_raw(data)
                 
                 var resultantHyp = partialHyp
-                let inSpeech = self.in_sppech()
-                
-                if inSpeech && !uttInSpeech {
-                    uttInSpeech = true
-                }
-                
-                //If there is no speech and we detect speech before get an hypotesis
-                if !inSpeech && uttInSpeech {
+                if self.speechState == .Utterance {
                     
                     self.end_utt()
                     resultantHyp = partialHyp + self.get_hyp()
-                    
                     self.start_utt()
-                    uttInSpeech = false
                 }
                 
                 return resultantHyp
@@ -99,7 +127,7 @@ public class Decoder {
             fileHandle.closeFile()
             
             //Process any pending speech
-            if uttInSpeech {
+            if speechState == .Speech {
                 return hypotesis + get_hyp()
             } else {
                 return hypotesis
@@ -120,6 +148,62 @@ public class Decoder {
                 complete(hypotesis)
             }
         }
+    }
+    
+    public func startDecodingSpeech (utteranceComplete: (Hypotesis?) -> ()) {
         
+        var error: NSErrorPointer = nil
+        AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryRecord, error: error)
+        
+        if error != nil {
+            println("Error setting the shared AVAudioSession: \(error)")
+            return
+        }
+        
+        let tmpFileName = NSTemporaryDirectory()!.stringByAppendingPathComponent("TLSphinx-\(NSDate.timeIntervalSinceReferenceDate())")
+        let tmpAudioFile = NSURL(string: tmpFileName)
+        
+        let settings: [NSObject : AnyObject] = [
+            AVFormatIDKey:              kAudioFormatLinearPCM,
+            AVSampleRateKey:            16000.0,
+            AVNumberOfChannelsKey:      1,
+            AVLinearPCMBitDepthKey:     16,
+            AVLinearPCMIsBigEndianKey:  false,
+            AVLinearPCMIsFloatKey:      false
+        ]
+        
+        recorder = AVAudioRecorder(URL: tmpAudioFile, settings: settings, error: error)
+        
+        if error != nil {
+            println("Error setting the audio recorder: \(error)")
+            return
+        }
+        
+        if recorder.record() {
+            if let audioFileHandle = NSFileHandle(forReadingAtPath: tmpFileName) {
+                
+                start_utt()
+                
+                audioFileHandle.readabilityHandler = { (handler: NSFileHandle!) -> Void in
+                    
+                    self.process_raw(handler.availableData)
+                    
+                    if self.speechState == .Utterance {
+                        self.end_utt()
+                        utteranceComplete(self.get_hyp())
+                        self.start_utt()
+                    }
+                }
+            }
+        }
+    }
+    
+    public func stopDecodingSpeech () {
+        recorder.stop()
+        end_utt()
+        
+        recorder.deleteRecording()
+        recorder = nil
+
     }
 }

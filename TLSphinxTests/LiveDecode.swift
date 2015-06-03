@@ -13,35 +13,43 @@ import TLSphinx
 
 class LiveDecode: XCTestCase {
     
-    let audioEngine = AVAudioEngine()
-
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-        let inputNode = audioEngine.inputNode
-        let bus = 0
-        inputNode.installTapOnBus(bus, bufferSize: 2048, format: inputNode.inputFormatForBus(bus)) {
-            (buffer: AVAudioPCMBuffer!, time: AVAudioTime!) -> Void in
-            println("sfdljk")
-        }
-        audioEngine.prepare()
-        audioEngine.startAndReturnError(nil)
-    }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
+    func getModelPath() -> String? {
+        return NSBundle(forClass: LiveDecode.self).pathForResource("en-us", ofType: nil)
     }
 
-    func testExample() {
-        // This is an example of a functional test case.
-        XCTAssert(true, "Pass")
-    }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock() {
-            // Put the code you want to measure the time of here.
+    func testAVAudioRecorder() {
+        
+        if let modelPath = getModelPath() {
+            
+            let hmm = modelPath.stringByAppendingPathComponent("en-us")
+            let lm = modelPath.stringByAppendingPathComponent("en-us.lm.dmp")
+            let dict = modelPath.stringByAppendingPathComponent("cmudict-en-us.dict")
+            
+            if let config = Config(args: ("-hmm", hmm), ("-lm", lm), ("-dict", dict)) {
+                config.showDebugInfo = false
+                if let decoder = Decoder(config:config) {
+                    decoder.startDecodingSpeech { (hyp) -> () in
+                        println("Utterance: \(hyp)")
+                    }
+                    
+                    let expectation = expectationWithDescription("")
+                    
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(5.0 * Double(NSEC_PER_SEC))) , dispatch_get_main_queue(), { () -> Void in
+                        decoder.stopDecodingSpeech()
+                        expectation.fulfill()
+                    })
+                    
+                    waitForExpectationsWithTimeout(NSTimeIntervalSince1970, handler: { (error: NSError!) -> Void in
+                        
+                    })
+                }
+                
+            } else {
+                XCTFail("Can't run test without a valid config")
+            }
+            
+        } else {
+            XCTFail("Can't access pocketsphinx model. Bundle root: \(NSBundle.mainBundle())")
         }
     }
 
