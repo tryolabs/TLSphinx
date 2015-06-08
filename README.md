@@ -8,9 +8,60 @@ The second part is `TLSphinx`, a Swift framework that use the `Sphinx` Clang mod
 
 ## Usage
 
-Right now the only supported operation is decode the speech in an audio file. To do so you first need to create a `Config` object. This object represents the _cmd_ln_t_ opaque structure and accept the same parameters in his default constructor.
+The framework provide three classes:
+- `Config` describe the configuration needed to recognize the speech.
+- `Decoder` is the main class that has the API to perform the decode.
+- `Hypotesis` is the result of a decode attempt. It has a `text` and a `score` properties.
 
-Once a `Config` object is created you need to create a `Decoder` passing in you configuration object. With the decoder you can perform automatic speech recognition from an audio file like this:
+#### Config
+
+Represents the _cmd_ln_t_ opaque structure in `Sphinx`. The default constructor take an array of tuples with the form `(param name, param value)` where _"param name"_ is the name of one of the parameters recognized for `Sphinx`. In this example we are passing the acustic model, the languaje model and the dictionary. For a complete list of recognized parameters check the [Sphinx docs].
+
+The class has a public property to turn on-off the debug info from printed out from `Sphinx`:
+```swift
+public var showDebugInfo: Bool
+```
+
+#### Decoder
+
+Represent the _ps_decoder_t_ opaque struct in `Sphinx`. The default constructor take a `Config` object as parameter.
+
+This has the functions to perform the decode from a file or from the mic. The result is returned in an optional `Hypotesis` object, following the naming convention of the _Pocketsphinx_ API. The functions are:
+
+To decode speech from a file:
+```swift
+public func decodeSpeechAtPath (filePath: String, complete: (Hypotesis?) -> ())
+```
+The audio pointed by `filePath` must have the following characteristics:
+- single-channel (monaural)
+- little-endian
+- unheadered
+- 16-bit signed
+- PCM
+- sampled at 16000 Hz
+
+To control the size of the buffer used to read the file the `Decoder` class has a public property
+```swift
+public var bufferSize: Int
+```
+
+To decode a live audio stream from the mic:
+```swift
+public func startDecodingSpeech (utteranceComplete: (Hypotesis?) -> ())
+public func stopDecodingSpeech ()
+```
+
+You can use the same `Decoder` instance many times.
+
+#### Hypotesis
+
+This struct represent the result of a _decode_ attempt. It has a `text` property with the best scored text and a `score` with the score value. This struct implement `Printable` so you can print it with `println(hypotesis_value)`.
+
+### Examples
+
+#### Process an Audio File
+
+As an example let's see how to decode the speech in an audio file. To do so you first need to create a `Config` object and pass it to the `Decoder` constructor. With the decoder you can perform automatic speech recognition from an audio file like this:
 
 ```swift
 import TLSphinx
@@ -40,24 +91,51 @@ if let config = Config(args: ("-hmm", hmm), ("-lm", lm), ("-dict", dict)) {
   // Handle Config() fail  
 }
 ```
+The decode is performed with the `decodeSpeechAtPath` function in the bacground. Once the process finish the `complete` closure is called in the main thread.
 
-The `Config` constructor take an array of tuples with the form `(param name, param value)` where _"param name"_ is the name of one of the parameters recognized for _Sphinx_. In this example we are passing the acustic model, the languaje model and the dictionary. For a complete list of recognized parameters check the [Sphinx docs].
-
-Then the example create a `Decoder` to process an audio file. The audio must have be, as expresed in the Pocketsphinx tutorial,  _"single-channel (monaural), little-endian, unheadered 16-bit signed PCM audio file sampled at 16000 Hz"_. The decode is performed with the `decodeSpeechAtPath` function in the bacground. It receive two parameters: the audio file path and a closure that will receive the result once the process finish. Once the decode process finish the `complete` closure is called in the main thread.
+#### Speech from the Mic
 
 ```swift
-public func decodeSpeechAtPath (filePath: String, complete: (Hypotesis?) -> ())
+import TLSphinx
+
+let hmm = ...   // Path to the acustic model
+let lm = ...    // Path to the languaje model
+let dict = ...  // Path to the languaje dictionary
+
+if let config = Config(args: ("-hmm", hmm), ("-lm", lm), ("-dict", dict)) {
+  if let decoder = Decoder(config:config) {
+      
+      decoder.startDecodingSpeech {
+          
+          if let hyp: Hypotesis = $0 {
+              println(hyp)
+          } else {
+              // Can't decode any speech because an error
+          }
+      }
+  } else {
+      // Handle Decoder() fail
+  }
+} else {
+  // Handle Config() fail  
+}
+
+//At some point in the future stop listen to the mic
+decoder.stopDecodingSpeech()
+
 ```
-
-The result of the decode process is a `Hypotesis` value _(it's actualy a `Optional<Hypotesis>`)_ following the naming convention of the _Pocketsphinx_ API. `Hypotesis` is an struct with two fields:
-- `text` is the text recognized in the audio
-- `score` is a numeric score of the hypotesis
-
-The `Decoder` has a public property `bufferSize: Int` to control the size of the buffer used to read the audio file. Also the `Config` class has a `showDebugInfo: Bool` property to turn on/off the messages generated by the _Sphinx_ library on run time.
 
 ## Installation
 
 We are still evaluating what path to follow in order to improve the integraration so in the mean time you should download the project from this repository and drag the _TLSpinx_ project to your XCode project. If you hit errors about missing headers and/or libraries for _Sphinx_ please add the `Spinx/include` to your header search path and `Sphinx/lib` to the library search path and mark it as `recursive`
+
+## Author
+
+BrunoBerisso, bruno@tryolabs.com
+
+## License
+
+TLSphinx is available under the MIT license. See the LICENSE file for more info.
 
 [CMU Sphinx]: http://cmusphinx.sourceforge.net/
 [Pocketsphinx]: http://cmusphinx.sourceforge.net/wiki/tutorialpocketsphinx
