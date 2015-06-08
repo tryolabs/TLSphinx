@@ -13,6 +13,16 @@ public struct Hypotesis {
     public let score: Int
 }
 
+extension Hypotesis : Printable {
+    
+    public var description: String {
+        get {
+            return "Text: \(text) - Score: \(score)"
+        }
+    }
+    
+}
+
 func +(lhs: Hypotesis, rhs: Hypotesis) -> Hypotesis {
     return Hypotesis(text: lhs.text + " " + rhs.text, score: (lhs.score + rhs.score) / 2)
 }
