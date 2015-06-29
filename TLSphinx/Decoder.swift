@@ -186,12 +186,16 @@ public class Decoder {
                 
                 audioFileHandle.readabilityHandler = { (handler: NSFileHandle!) -> Void in
                     
-                    self.process_raw(handler.availableData)
+                    let audioData  = handler.availableData
                     
-                    if self.speechState == .Utterance {
-                        self.end_utt()
-                        utteranceComplete(self.get_hyp())
-                        self.start_utt()
+                    if audioData.length > 0 {
+                        self.process_raw(audioData)
+                        
+                        if self.speechState == .Utterance {
+                            self.end_utt()
+                            utteranceComplete(self.get_hyp())
+                            self.start_utt()
+                        }
                     }
                 }
             }
@@ -204,6 +208,5 @@ public class Decoder {
         
         recorder.deleteRecording()
         recorder = nil
-
     }
 }
