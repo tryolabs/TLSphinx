@@ -6,6 +6,8 @@ This repository has two main parts. First is syntetized version of the [pocketsp
 
 The second part is `TLSphinx`, a Swift framework that use the `Sphinx` Clang module and expose a Swift-like API that talks to _pocketsphinx_.
 
+_Note: I write a blog post about `TLSphinx` [here](http://blog.tryolabs.com/2015/06/15/tlsphinx-automatic-speech-recognition-asr-in-swift/) at the [Tryolabs Blog]. Check it for a short history about why I write this._
+
 ## Usage
 
 The framework provide three classes:
@@ -142,3 +144,4 @@ TLSphinx is available under the MIT license. See the LICENSE file for more info.
 [sphinx base]: http://sourceforge.net/projects/cmusphinx/files/sphinxbase/5prealpha/
 [Clang module]: http://clang.llvm.org/docs/Modules.html
 [Sphinx docs]: http://cmusphinx.sourceforge.net/wiki/
+[Tryolabs Blog]: http://blog.tryolabs.com/
