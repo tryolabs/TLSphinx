@@ -55,9 +55,9 @@ public class Decoder {
     }
     
     deinit {
-        assert(ps_free(psDecoder) == 0, "Can't free decoder, it's shared among instances")
+        let refCount = ps_free(psDecoder)
+        assert(refCount == 0, "Can't free decoder, it's shared among instances")
     }
-    
     
     private func process_raw(data: NSData) -> CInt {
         //Sphinx expect words of 2 bytes but the NSFileHandle read one byte at time so the lenght of the data for sphinx is the half of the real one.
@@ -204,8 +204,6 @@ public class Decoder {
     
     public func stopDecodingSpeech () {
         recorder.stop()
-        end_utt()
-        
         recorder.deleteRecording()
         recorder = nil
     }

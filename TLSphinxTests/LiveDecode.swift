@@ -26,7 +26,9 @@ class LiveDecode: XCTestCase {
             let dict = modelPath.stringByAppendingPathComponent("cmudict-en-us.dict")
             
             if let config = Config(args: ("-hmm", hmm), ("-lm", lm), ("-dict", dict)) {
+                
                 config.showDebugInfo = false
+                
                 if let decoder = Decoder(config:config) {
                     decoder.startDecodingSpeech { (hyp) -> () in
                         println("Utterance: \(hyp)")
