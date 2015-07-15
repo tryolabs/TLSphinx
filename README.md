@@ -129,7 +129,23 @@ decoder.stopDecodingSpeech()
 
 ## Installation
 
-We are still evaluating what path to follow in order to improve the integraration so in the mean time you should download the project from this repository and drag the _TLSpinx_ project to your XCode project. If you hit errors about missing headers and/or libraries for _Sphinx_ please add the `Spinx/include` to your header search path and `Sphinx/lib` to the library search path and mark it as `recursive`
+The more clear way to integrate `TLSphinx` is using [Carthage] or similar method to get the framework bundle. This let you integrate the framework and the `Sphinx` module without _magic_.
+
+#### Carthage
+
+In your `Cartfile` add a reference to the last version of `TLSphinx`:
+````
+github "Tryolabs/TLSphinx" ~> tag_pointing_to_the_last_version
+````
+
+Then run `carthage update`, this should fetch and build the last version of `TLSphinx`. Once it's done drag the _TLSphinx.framewok_ bundle to the XCode _Linked Frameworks and Libraries_. You must tell XCode where to find `Sphinx` module that is located in the Carthage checkout. To do so:
+- add `$(SRCROOT)/Carthage/Checkouts/TLSphinx/Sphinx/include` to _Header Search Paths_ recursive
+- add `$(SRCROOT)/Carthage/Checkouts/TLSphinx/Sphinx/lib` to _Library Search Paths_ recursive
+- in _Swift Compiler - Search Paths_ add `$(SRCROOT)/Carthage/Checkouts/TLSphinx/Sphinx/include` to _Import Paths_
+
+#### Manual
+
+Download the project from this repository and drag the _TLSpinx_ project to your XCode project. If you hit errors about missing headers and/or libraries for _Sphinx_ please add the `Spinx/include` to your header search path and `Sphinx/lib` to the library search path and mark it as `recursive`
 
 ## Author
 
@@ -145,3 +161,4 @@ TLSphinx is available under the MIT license. See the LICENSE file for more info.
 [Clang module]: http://clang.llvm.org/docs/Modules.html
 [Sphinx docs]: http://cmusphinx.sourceforge.net/wiki/
 [Tryolabs Blog]: http://blog.tryolabs.com/
+[Carthage]: https://github.com/Carthage/Carthage
