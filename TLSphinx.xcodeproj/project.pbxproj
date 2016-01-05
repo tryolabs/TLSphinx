@@ -185,7 +185,9 @@
 		9B5187A61B18E1E80000E78D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastSwiftMigration = 0720;
+				LastSwiftUpdateCheck = 0720;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Bruno Berisso";
 				TargetAttributes = {
 					9B5187AE1B18E1E80000E78D = {
@@ -286,6 +288,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -375,6 +378,7 @@
 					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx",
 					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tryolabs.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = Sphinx/include;
@@ -404,6 +408,7 @@
 					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx",
 					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tryolabs.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = Sphinx/include;
@@ -413,10 +418,7 @@
 		9B5187C91B18E1E80000E78D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -432,6 +434,7 @@
 					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx",
 					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tryolabs.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -439,10 +442,7 @@
 		9B5187CA1B18E1E80000E78D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -454,6 +454,7 @@
 					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx",
 					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tryolabs.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

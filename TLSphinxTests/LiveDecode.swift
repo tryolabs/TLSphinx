@@ -21,9 +21,9 @@ class LiveDecode: XCTestCase {
         
         if let modelPath = getModelPath() {
             
-            let hmm = modelPath.stringByAppendingPathComponent("en-us")
-            let lm = modelPath.stringByAppendingPathComponent("en-us.lm.dmp")
-            let dict = modelPath.stringByAppendingPathComponent("cmudict-en-us.dict")
+            let hmm = (modelPath as NSString).stringByAppendingPathComponent("en-us")
+            let lm = (modelPath as NSString).stringByAppendingPathComponent("en-us.lm.dmp")
+            let dict = (modelPath as NSString).stringByAppendingPathComponent("cmudict-en-us.dict")
             
             if let config = Config(args: ("-hmm", hmm), ("-lm", lm), ("-dict", dict)) {
                 
@@ -31,7 +31,7 @@ class LiveDecode: XCTestCase {
                 
                 if let decoder = Decoder(config:config) {
                     decoder.startDecodingSpeech { (hyp) -> () in
-                        println("Utterance: \(hyp)")
+                        print("Utterance: \(hyp)")
                     }
                     
                     let expectation = expectationWithDescription("")
@@ -41,9 +41,7 @@ class LiveDecode: XCTestCase {
                         expectation.fulfill()
                     })
                     
-                    waitForExpectationsWithTimeout(NSTimeIntervalSince1970, handler: { (error: NSError!) -> Void in
-                        
-                    })
+                    waitForExpectationsWithTimeout(NSTimeIntervalSince1970, handler: nil)
                 }
                 
             } else {
