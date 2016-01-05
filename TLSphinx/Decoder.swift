@@ -10,7 +10,7 @@ import Foundation
 import AVFoundation
 import Sphinx
 
-private enum SpeechStateEnum : Printable {
+private enum SpeechStateEnum : CustomStringConvertible {
     case Silence
     case Speech
     case Utterance
@@ -152,19 +152,23 @@ public class Decoder {
     
     public func startDecodingSpeech (utteranceComplete: (Hypotesis?) -> ()) {
         
-        var error: NSErrorPointer = nil
-        AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryRecord, error: error)
+        let error: NSErrorPointer = nil
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryRecord)
+        } catch let error1 as NSError {
+            error.memory = error1
+        }
         
         if error != nil {
-            println("Error setting the shared AVAudioSession: \(error)")
+            print("Error setting the shared AVAudioSession: \(error)")
             return
         }
         
-        let tmpFileName = NSTemporaryDirectory()!.stringByAppendingPathComponent("TLSphinx-\(NSDate.timeIntervalSinceReferenceDate())")
+        let tmpFileName = (NSTemporaryDirectory() as NSString).stringByAppendingPathComponent("TLSphinx-\(NSDate.timeIntervalSinceReferenceDate())")
         let tmpAudioFile = NSURL(string: tmpFileName)
         
-        let settings: [NSObject : AnyObject] = [
-            AVFormatIDKey:              kAudioFormatLinearPCM,
+        let settings: [String : AnyObject] = [
+            AVFormatIDKey:              UInt(kAudioFormatLinearPCM),
             AVSampleRateKey:            16000.0,
             AVNumberOfChannelsKey:      1,
             AVLinearPCMBitDepthKey:     16,
@@ -172,10 +176,15 @@ public class Decoder {
             AVLinearPCMIsFloatKey:      false
         ]
         
-        recorder = AVAudioRecorder(URL: tmpAudioFile, settings: settings, error: error)
+        do {
+            recorder = try AVAudioRecorder(URL: tmpAudioFile!, settings: settings)
+        } catch let error1 as NSError {
+            error.memory = error1
+            recorder = nil
+        }
         
         if error != nil {
-            println("Error setting the audio recorder: \(error)")
+            print("Error setting the audio recorder: \(error)")
             return
         }
         
@@ -184,7 +193,7 @@ public class Decoder {
                 
                 start_utt()
                 
-                audioFileHandle.readabilityHandler = { (handler: NSFileHandle!) -> Void in
+                audioFileHandle.readabilityHandler = { (handler: NSFileHandle) -> Void in
                     
                     let audioData  = handler.availableData
                     

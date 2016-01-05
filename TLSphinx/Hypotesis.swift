@@ -13,7 +13,7 @@ public struct Hypotesis {
     public let score: Int
 }
 
-extension Hypotesis : Printable {
+extension Hypotesis : CustomStringConvertible {
     
     public var description: String {
         get {

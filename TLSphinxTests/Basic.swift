@@ -21,9 +21,9 @@ class BasicTests: XCTestCase {
         
         if let modelPath = getModelPath() {
             
-            let hmm = modelPath.stringByAppendingPathComponent("en-us")
-            let lm = modelPath.stringByAppendingPathComponent("en-us.lm.dmp")
-            let dict = modelPath.stringByAppendingPathComponent("cmudict-en-us.dict")
+            let hmm = (modelPath as NSString).stringByAppendingPathComponent("en-us")
+            let lm = (modelPath as NSString).stringByAppendingPathComponent("en-us.lm.dmp")
+            let dict = (modelPath as NSString).stringByAppendingPathComponent("cmudict-en-us.dict")
             
             let config = Config(args: ("-hmm", hmm), ("-lm", lm), ("-dict", dict))
             
@@ -38,9 +38,9 @@ class BasicTests: XCTestCase {
         
         if let modelPath = getModelPath() {
             
-            let hmm = modelPath.stringByAppendingPathComponent("en-us")
-            let lm = modelPath.stringByAppendingPathComponent("en-us.lm.dmp")
-            let dict = modelPath.stringByAppendingPathComponent("cmudict-en-us.dict")
+            let hmm = (modelPath as NSString).stringByAppendingPathComponent("en-us")
+            let lm = (modelPath as NSString).stringByAppendingPathComponent("en-us.lm.dmp")
+            let dict = (modelPath as NSString).stringByAppendingPathComponent("cmudict-en-us.dict")
             
             if let config = Config(args: ("-hmm", hmm), ("-lm", lm), ("-dict", dict)) {
                 let decoder = Decoder(config:config)
@@ -59,21 +59,21 @@ class BasicTests: XCTestCase {
         
         if let modelPath = getModelPath() {
             
-            let hmm = modelPath.stringByAppendingPathComponent("en-us")
-            let lm = modelPath.stringByAppendingPathComponent("en-us.lm.dmp")
-            let dict = modelPath.stringByAppendingPathComponent("cmudict-en-us.dict")
+            let hmm = (modelPath as NSString).stringByAppendingPathComponent("en-us")
+            let lm = (modelPath as NSString).stringByAppendingPathComponent("en-us.lm.dmp")
+            let dict = (modelPath as NSString).stringByAppendingPathComponent("cmudict-en-us.dict")
             
             if let config = Config(args: ("-hmm", hmm), ("-lm", lm), ("-dict", dict)) {
                 if let decoder = Decoder(config:config) {
                     
-                    let audioFile = modelPath.stringByAppendingPathComponent("goforward.raw")
+                    let audioFile = (modelPath as NSString).stringByAppendingPathComponent("goforward.raw")
                     let expectation = expectationWithDescription("Decode finish")
                     
                     decoder.decodeSpeechAtPath(audioFile) {
                         
                         if let hyp = $0 {
                             
-                            println("Text: \(hyp.text) - Score: \(hyp.score)")
+                            print("Text: \(hyp.text) - Score: \(hyp.score)")
                             XCTAssert(hyp.text == "go forward ten meters", "Pass")
                             
                         } else {
