@@ -9,7 +9,6 @@ module Sphinx {
     module Pocket {
         umbrella header "pocketsphinx/pocketsphinx.h"
         link "pocketsphinx"
-        use Base
         export Base
     }
 }
