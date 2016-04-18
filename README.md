@@ -135,7 +135,7 @@ The more clear way to integrate `TLSphinx` is using [Carthage] or similar method
 
 In your `Cartfile` add a reference to the last version of `TLSphinx`:
 ````
-github "Tryolabs/TLSphinx" ~> 0.0.2
+github "Tryolabs/TLSphinx" ~> 0.0.3
 ````
 
 Then run `carthage update`, this should fetch and build the last version of `TLSphinx`. Once it's done drag the _TLSphinx.framewok_ bundle to the XCode _Linked Frameworks and Libraries_. You must tell XCode where to find `Sphinx` module that is located in the Carthage checkout. To do so:
