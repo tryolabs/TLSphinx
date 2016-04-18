@@ -1,25 +1,25 @@
 # TLSphinx
 
-TLSphinx is a Swift wrapper around [Pocketsphinx], a portable library based on [CMU Sphinx], that allow an application to perform speech recognition **withouth the audio leave the device**
+TLSphinx is a Swift wrapper around [Pocketsphinx], a portable library based on [CMU Sphinx], that allow an application to perform speech recognition **without the audio ever leaving the device**
 
-This repository has two main parts. First is syntetized version of the [pocketsphinx](http://sourceforge.net/projects/cmusphinx/files/pocketsphinx/5prealpha/) and [sphinx base] repositories with a module map to access the library as a [Clang module]. This module is accessed under the name `Shpinx` and has two submodules: `Pocket` and `Base` in reference to _pocketsphinx_ and _sphinx base_.
+This repository has two main parts. The first is a syntetized version of the [pocketsphinx](http://sourceforge.net/projects/cmusphinx/files/pocketsphinx/5prealpha/) and [sphinx base] repositories with a module map to access the library as a [Clang module]. This module is accessed under the name `Shpinx` and has two submodules: `Pocket` and `Base` in reference to _pocketsphinx_ and _sphinx base_.
 
-The second part is `TLSphinx`, a Swift framework that use the `Sphinx` Clang module and expose a Swift-like API that talks to _pocketsphinx_.
+The second part is `TLSphinx`, a Swift framework that uses the `Sphinx` Clang module and exposes a Swift-like API that talks to _pocketsphinx_.
 
-_Note: I write a blog post about `TLSphinx` [here](http://blog.tryolabs.com/2015/06/15/tlsphinx-automatic-speech-recognition-asr-in-swift/) at the [Tryolabs Blog]. Check it for a short history about why I write this._
+_Note: I write a blog post about `TLSphinx` [here](http://blog.tryolabs.com/2015/06/15/tlsphinx-automatic-speech-recognition-asr-in-swift/) at the [Tryolabs Blog]. Check it out for a short history about why I wrote this._
 
 ## Usage
 
-The framework provide three classes:
-- `Config` describe the configuration needed to recognize the speech.
-- `Decoder` is the main class that has the API to perform the decode.
+The framework provides three classes:
+- `Config` describe the configuration needed to recognize speech.
+- `Decoder` is the main class that provides the API to perform all decoding.
 - `Hypotesis` is the result of a decode attempt. It has a `text` and a `score` properties.
 
 #### Config
 
-Represents the _cmd_ln_t_ opaque structure in `Sphinx`. The default constructor take an array of tuples with the form `(param name, param value)` where _"param name"_ is the name of one of the parameters recognized for `Sphinx`. In this example we are passing the acustic model, the languaje model and the dictionary. For a complete list of recognized parameters check the [Sphinx docs].
+Represents the _cmd_ln_t_ opaque structure in `Sphinx`. The default constructor takes an array of tuples with the form `(param name, param value)` where _"param name"_ is the name of one of the parameters recognized by `Sphinx`. In this example we are passing the acustic model, the language model and the dictionary. For a complete list of recognized parameters check the [Sphinx docs].
 
-The class has a public property to turn on-off the debug info from printed out from `Sphinx`:
+The class has a public property to turn on/off the debug info from `Sphinx`:
 ```swift
 public var showDebugInfo: Bool
 ```
@@ -42,7 +42,7 @@ The audio pointed by `filePath` must have the following characteristics:
 - PCM
 - sampled at 16000 Hz
 
-To control the size of the buffer used to read the file the `Decoder` class has a public property
+To control the size of the buffer used to read the file, the `Decoder` class has a public property
 ```swift
 public var bufferSize: Int
 ```
@@ -57,13 +57,13 @@ You can use the same `Decoder` instance many times.
 
 #### Hypotesis
 
-This struct represent the result of a _decode_ attempt. It has a `text` property with the best scored text and a `score` with the score value. This struct implement `Printable` so you can print it with `println(hypotesis_value)`.
+This struct represents the result of a _decode_ attempt. It has a `text` property with the best scored text and a `score` with the score value. This struct implements `Printable` so you can print it with `println(hypotesis_value)`.
 
 ### Examples
 
-#### Process an Audio File
+#### Processing an Audio File
 
-As an example let's see how to decode the speech in an audio file. To do so you first need to create a `Config` object and pass it to the `Decoder` constructor. With the decoder you can perform automatic speech recognition from an audio file like this:
+As an example let's see how to decode the speech in an audio file. To do so you first need to create a `Config` object and pass it to the `Decoder` constructor. With the decoder you can perform automatic speech recognition from an audio file like so:
 
 ```swift
 import TLSphinx
@@ -83,7 +83,7 @@ if let config = Config(args: ("-hmm", hmm), ("-lm", lm), ("-dict", dict)) {
               // Print the decoder text and score
               println("Text: \(hyp.text) - Score: \(hyp.score)")
           } else {
-              // Can't decode any speech because an error
+              // Can't decode any speech because of an error
           }
       }
   } else {
@@ -93,16 +93,16 @@ if let config = Config(args: ("-hmm", hmm), ("-lm", lm), ("-dict", dict)) {
   // Handle Config() fail  
 }
 ```
-The decode is performed with the `decodeSpeechAtPath` function in the bacground. Once the process finish the `complete` closure is called in the main thread.
+The decode is performed with the `decodeSpeechAtPath` function in the bacground. Once the process finishes,  the `complete` closure is called in the main thread.
 
 #### Speech from the Mic
 
 ```swift
 import TLSphinx
 
-let hmm = ...   // Path to the acustic model
-let lm = ...    // Path to the languaje model
-let dict = ...  // Path to the languaje dictionary
+let hmm = ...   // Path to the acoustic model
+let lm = ...    // Path to the language model
+let dict = ...  // Path to the language dictionary
 
 if let config = Config(args: ("-hmm", hmm), ("-lm", lm), ("-dict", dict)) {
   if let decoder = Decoder(config:config) {
@@ -129,7 +129,7 @@ decoder.stopDecodingSpeech()
 
 ## Installation
 
-The more clear way to integrate `TLSphinx` is using [Carthage] or similar method to get the framework bundle. This let you integrate the framework and the `Sphinx` module without _magic_.
+The easiest way to integrate `TLSphinx` is using [Carthage] or a similar method to get the framework bundle. This lets you integrate the framework and the `Sphinx` module without _magic_.
 
 #### Carthage
 
@@ -138,14 +138,14 @@ In your `Cartfile` add a reference to the last version of `TLSphinx`:
 github "Tryolabs/TLSphinx" ~> 0.0.3
 ````
 
-Then run `carthage update`, this should fetch and build the last version of `TLSphinx`. Once it's done drag the _TLSphinx.framewok_ bundle to the XCode _Linked Frameworks and Libraries_. You must tell XCode where to find `Sphinx` module that is located in the Carthage checkout. To do so:
+Then run `carthage update`, this should fetch and build the last version of `TLSphinx`. Once it's done, drag the _TLSphinx.framewok_ bundle to the XCode _Linked Frameworks and Libraries_. You must tell XCode where to find `Sphinx` module that is located in the Carthage checkout. To do so:
 - add `$(SRCROOT)/Carthage/Checkouts/TLSphinx/Sphinx/include` to _Header Search Paths_ recursive
 - add `$(SRCROOT)/Carthage/Checkouts/TLSphinx/Sphinx/lib` to _Library Search Paths_ recursive
 - in _Swift Compiler - Search Paths_ add `$(SRCROOT)/Carthage/Checkouts/TLSphinx/Sphinx/include` to _Import Paths_
 
 #### Manual
 
-Download the project from this repository and drag the _TLSpinx_ project to your XCode project. If you hit errors about missing headers and/or libraries for _Sphinx_ please add the `Spinx/include` to your header search path and `Sphinx/lib` to the library search path and mark it as `recursive`
+Download the project from this repository and drag the _TLSpinx_ project to your XCode project. If you encounter any errors about missing headers and/or libraries for _Sphinx_ please add the `Spinx/include` directory to your header search path and `Sphinx/lib` to the library search path and mark it as `recursive`.
 
 ## Author
 
