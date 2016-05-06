@@ -91,24 +91,24 @@ public class Decoder {
         return ps_end_utt(psDecoder) == 0
     }
     
-    private func get_hyp() -> Hypotesis? {
+    private func get_hyp() -> Hypothesis? {
         var score: CInt = 0
         let string: UnsafePointer<CChar> = ps_get_hyp(psDecoder, &score)
         
         if let text = String.fromCString(string) {
-            return Hypotesis(text: text, score: Int(score))
+            return Hypothesis(text: text, score: Int(score))
         } else {
             return nil
         }
     }
     
-    private func hypotesisForSpeechAtPath (filePath: String) -> Hypotesis? {
+    private func hypotesisForSpeechAtPath (filePath: String) -> Hypothesis? {
         
         if let fileHandle = NSFileHandle(forReadingAtPath: filePath) {
             
             start_utt()
             
-            let hypotesis = fileHandle.reduceChunks(bufferSize, initial: nil, reducer: { (data: NSData, partialHyp: Hypotesis?) -> Hypotesis? in
+            let hypothesis = fileHandle.reduceChunks(bufferSize, initial: nil, reducer: { (data: NSData, partialHyp: Hypothesis?) -> Hypothesis? in
                 
                 self.process_raw(data)
                 
@@ -128,9 +128,9 @@ public class Decoder {
             
             //Process any pending speech
             if speechState == .Speech {
-                return hypotesis + get_hyp()
+                return hypothesis + get_hyp()
             } else {
-                return hypotesis
+                return hypothesis
             }
             
         } else {
@@ -138,19 +138,19 @@ public class Decoder {
         }
     }
     
-    public func decodeSpeechAtPath (filePath: String, complete: (Hypotesis?) -> ()) {
+    public func decodeSpeechAtPath (filePath: String, complete: (Hypothesis?) -> ()) {
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
             
-            let hypotesis = self.hypotesisForSpeechAtPath(filePath)
+            let hypothesis = self.hypotesisForSpeechAtPath(filePath)
             
             dispatch_async(dispatch_get_main_queue()) {
-                complete(hypotesis)
+                complete(hypothesis)
             }
         }
     }
     
-    public func startDecodingSpeech (utteranceComplete: (Hypotesis?) -> ()) {
+    public func startDecodingSpeech (utteranceComplete: (Hypothesis?) -> ()) {
         
         let error: NSErrorPointer = nil
         do {
