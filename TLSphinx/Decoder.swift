@@ -63,7 +63,7 @@ public class Decoder {
         //Sphinx expect words of 2 bytes but the NSFileHandle read one byte at time so the lenght of the data for sphinx is the half of the real one.
         let dataLenght = data.length / 2
         let numberOfFrames = ps_process_raw(psDecoder, UnsafePointer(data.bytes), dataLenght, SFalse, SFalse)
-        let hasSpeech = in_sppech()
+        let hasSpeech = in_speech()
         
         switch (speechState) {
         case .Silence where hasSpeech:
@@ -79,7 +79,7 @@ public class Decoder {
         return numberOfFrames
     }
     
-    private func in_sppech() -> Bool {
+    private func in_speech() -> Bool {
         return ps_get_in_speech(psDecoder) == 1
     }
     
