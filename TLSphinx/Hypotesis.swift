@@ -1,5 +1,5 @@
 //
-//  Hypotesis.swift
+//  Hypothesis.swift
 //  TLSphinx
 //
 //  Created by Bruno Berisso on 6/1/15.
@@ -8,12 +8,12 @@
 
 import Foundation
 
-public struct Hypotesis {
+public struct Hypothesis {
     public let text: String
     public let score: Int
 }
 
-extension Hypotesis : CustomStringConvertible {
+extension Hypothesis : CustomStringConvertible {
     
     public var description: String {
         get {
@@ -23,11 +23,11 @@ extension Hypotesis : CustomStringConvertible {
     
 }
 
-func +(lhs: Hypotesis, rhs: Hypotesis) -> Hypotesis {
-    return Hypotesis(text: lhs.text + " " + rhs.text, score: (lhs.score + rhs.score) / 2)
+func +(lhs: Hypothesis, rhs: Hypothesis) -> Hypothesis {
+    return Hypothesis(text: lhs.text + " " + rhs.text, score: (lhs.score + rhs.score) / 2)
 }
 
-func +(lhs: Hypotesis?, rhs: Hypotesis?) -> Hypotesis? {
+func +(lhs: Hypothesis?, rhs: Hypothesis?) -> Hypothesis? {
     if let _lhs = lhs, let _rhs = rhs {
         return _lhs + _rhs
     } else {
