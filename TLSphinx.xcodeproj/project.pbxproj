@@ -369,20 +369,21 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(PROJECT_DIR)/Sphinx/include/**",
+					"\"$(SRCROOT)/Sphinx/include/pocketsphinx\"/**",
+					"\"$(SRCROOT)/Sphinx/include/sphinxbase\"/**",
 				);
 				INFOPLIST_FILE = TLSphinx/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx",
-					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase",
+					"\"$(SRCROOT)/Sphinx/lib/pocketsphinx\"/**",
+					"\"$(SRCROOT)/Sphinx/lib/sphinxbase\"/**",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tryolabs.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_INCLUDE_PATHS = Sphinx/include;
+				SWIFT_INCLUDE_PATHS = "\"$(SRCROOT)/Sphinx/include\"/**";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -400,20 +401,21 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(PROJECT_DIR)/Sphinx/include/**",
+					"\"$(SRCROOT)/Sphinx/include/pocketsphinx\"/**",
+					"\"$(SRCROOT)/Sphinx/include/sphinxbase\"/**",
 				);
 				INFOPLIST_FILE = TLSphinx/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx",
-					"$(PROJECT_DIR)/Sphinx/lib/sphinxbase",
+					"\"$(SRCROOT)/Sphinx/lib/pocketsphinx\"/**",
+					"\"$(SRCROOT)/Sphinx/lib/sphinxbase\"/**",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tryolabs.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_INCLUDE_PATHS = Sphinx/include;
+				SWIFT_INCLUDE_PATHS = "\"$(SRCROOT)/Sphinx/include\"/**";
 			};
 			name = Release;
 		};

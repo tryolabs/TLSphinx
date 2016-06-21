@@ -32,7 +32,8 @@ private enum SpeechStateEnum : CustomStringConvertible {
 public class Decoder {
     
     private var psDecoder: COpaquePointer
-    private var recorder: AVAudioRecorder!
+    private var engine = AVAudioEngine()
+    
     private var speechState: SpeechStateEnum
     
     public var bufferSize: Int = 2048
@@ -150,70 +151,65 @@ public class Decoder {
         }
     }
     
+    func toNSData(PCMBuffer: AVAudioPCMBuffer) -> NSData {
+        
+        let channelCount = 1  // given PCMBuffer channel count is 1
+        let channels = UnsafeBufferPointer(start: PCMBuffer.int16ChannelData, count: channelCount)
+        let ch0Data = NSData(bytes: channels[0], length:Int(PCMBuffer.frameCapacity * PCMBuffer.format.streamDescription.memory.mBytesPerFrame))
+        return ch0Data
+    }
+    
+    
     public func startDecodingSpeech (utteranceComplete: (Hypothesis?) -> ()) {
         
-        let error: NSErrorPointer = nil
-        do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryRecord)
-        } catch let error1 as NSError {
-            error.memory = error1
-        }
         
-        if error != nil {
-            print("Error setting the shared AVAudioSession: \(error)")
-            return
-        }
-        
-        let tmpFileName = (NSTemporaryDirectory() as NSString).stringByAppendingPathComponent("TLSphinx-\(NSDate.timeIntervalSinceReferenceDate())")
-        let tmpAudioFile = NSURL(string: tmpFileName)
-        
-        let settings: [String : AnyObject] = [
-            AVFormatIDKey:              UInt(kAudioFormatLinearPCM),
-            AVSampleRateKey:            16000.0,
-            AVNumberOfChannelsKey:      1,
-            AVLinearPCMBitDepthKey:     16,
-            AVLinearPCMIsBigEndianKey:  false,
-            AVLinearPCMIsFloatKey:      false
-        ]
-        
-        do {
-            recorder = try AVAudioRecorder(URL: tmpAudioFile!, settings: settings)
-        } catch let error1 as NSError {
-            error.memory = error1
-            recorder = nil
-        }
-        
-        if error != nil {
-            print("Error setting the audio recorder: \(error)")
-            return
-        }
-        
-        if recorder.record() {
-            if let audioFileHandle = NSFileHandle(forReadingAtPath: tmpFileName) {
-                
-                start_utt()
-                
-                audioFileHandle.readabilityHandler = { (handler: NSFileHandle) -> Void in
+            let error: NSErrorPointer = nil
+            do {
+                try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryRecord)
+            } catch let error1 as NSError {
+                error.memory = error1
+            }
+            
+            if error != nil {
+                print("Error setting the shared AVAudioSession: \(error)")
+                return
+            }
+            
+            self.engine.stop()
+            self.engine.reset()
+            self.engine = AVAudioEngine()
+            
+            let input = self.engine.inputNode!
+            let formatIn = AVAudioFormat(commonFormat: .PCMFormatInt16, sampleRate: 44100, channels: 1, interleaved: false)
+            self.engine.connect(input, to: self.engine.outputNode, format: formatIn)
+            
+            assert(self.engine.inputNode != nil)
+            
+            input.installTapOnBus(0, bufferSize: 4096, format: formatIn, block:
+                { (buffer: AVAudioPCMBuffer!, time: AVAudioTime!) -> Void in
                     
-                    let audioData  = handler.availableData
-                    
-                    if audioData.length > 0 {
-                        self.process_raw(audioData)
+                    let data = self.toNSData(buffer)
+                    if data.length > 0 {
                         
+                        self.process_raw(data)
                         if self.speechState == .Utterance {
                             self.end_utt()
                             utteranceComplete(self.get_hyp())
                             self.start_utt()
                         }
+                        
                     }
-                }
-            }
-        }
+            })
+            
+            self.engine.mainMixerNode.outputVolume = 0.0
+            self.start_utt()
+            self.engine.prepare()
+            try! self.engine.start()
     }
     
+    
     public func stopDecodingSpeech () {
-        recorder.stop()
-        recorder.deleteRecording()
-        recorder = nil
+        engine.stop()
+        engine.mainMixerNode.removeTapOnBus(0)
     }
 }
