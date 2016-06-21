@@ -32,7 +32,8 @@ private enum SpeechStateEnum : CustomStringConvertible {
 public class Decoder {
     
     private var psDecoder: COpaquePointer
-    private var recorder: AVAudioRecorder!
+    private var engine = AVAudioEngine()
+    
     private var speechState: SpeechStateEnum
     
     public var bufferSize: Int = 2048
@@ -159,9 +160,6 @@ public class Decoder {
     }
     
     
-    
-    var engine = AVAudioEngine()
-    
     public func startDecodingSpeech (utteranceComplete: (Hypothesis?) -> ()) {
         
         
@@ -209,9 +207,9 @@ public class Decoder {
             try! self.engine.start()
     }
     
+    
     public func stopDecodingSpeech () {
-        recorder.stop()
-        recorder.deleteRecording()
-        recorder = nil
+        engine.stop()
+        engine.mainMixerNode.removeTapOnBus(0)
     }
 }
