@@ -36,7 +36,7 @@ class LiveDecode: XCTestCase {
                     
                     let expectation = expectationWithDescription("")
                     
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(5.0 * Double(NSEC_PER_SEC))) , dispatch_get_main_queue(), { () -> Void in
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(15.0 * Double(NSEC_PER_SEC))) , dispatch_get_main_queue(), { () -> Void in
                         decoder.stopDecodingSpeech()
                         expectation.fulfill()
                     })
