@@ -9,15 +9,15 @@
 import Foundation
 import Sphinx.Base
 
-public class Config {
+open class Config {
     
-    var cmdLnConf: COpaquePointer
-    private var cArgs: [UnsafeMutablePointer<Int8>]
+    var cmdLnConf: OpaquePointer?
+    fileprivate var cArgs: [UnsafeMutablePointer<Int8>?]
     
     public init?(args: (String,String)...) {
         
         // Create [UnsafeMutablePointer<Int8>].
-        cArgs = args.flatMap { (name, value) -> [UnsafeMutablePointer<Int8>] in
+        cArgs = args.flatMap { (name, value) -> [UnsafeMutablePointer<Int8>?] in
             //strdup move the strings to the heap and return a UnsageMutablePointer<Int8>
             return [strdup(name),strdup(value)]
         }
@@ -38,7 +38,7 @@ public class Config {
     }
     
     
-    public var showDebugInfo: Bool {
+    open var showDebugInfo: Bool {
         get {
             if cmdLnConf != nil {
                 return cmd_ln_str_r(cmdLnConf, "-logfn") == nil
