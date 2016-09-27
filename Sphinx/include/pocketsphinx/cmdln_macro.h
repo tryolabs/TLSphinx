@@ -62,13 +62,11 @@
     { "-logfn",                                         \
             ARG_STRING,                                 \
             NULL,                                       \
-            "File to write log messages in"             \
-     },                                                 \
+            "File to write log messages in" },          \
     { "-debug",                                         \
             ARG_INT32,                                  \
             NULL,                                       \
-            "Verbosity level for debugging messages"    \
-     },                                                 \
+            "Verbosity level for debugging messages" }, \
      { "-mfclogdir",                                    \
              ARG_STRING,                                \
              NULL,                                      \
@@ -78,7 +76,7 @@
             ARG_STRING,                                 \
             NULL,                                       \
             "Directory to log raw audio files to" },    \
-     { "-senlogdir",                                    \
+    { "-senlogdir",                                     \
              ARG_STRING,                                \
              NULL,                                      \
              "Directory to log senone score files to"   \
@@ -196,6 +194,10 @@
       ARG_FLOAT64,                                              \
       "1e-1",                                                   \
       "Phone loop probability for keyword spotting" },          \
+{ "-kws_delay",                                                 \
+      ARG_INT32,                                                \
+      "10",                                                     \
+      "Delay to wait for best detection score" },               \
 { "-kws_threshold",                                             \
       ARG_FLOAT64,                                              \
       "1",                                                      \
