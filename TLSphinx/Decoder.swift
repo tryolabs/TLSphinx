@@ -33,7 +33,7 @@ private enum SpeechStateEnum : CustomStringConvertible {
 
 private extension AVAudioPCMBuffer {
 
-    func toNSDate() -> Data {
+    func toDate() -> Data {
         let channels = UnsafeBufferPointer(start: int16ChannelData, count: 1)
         let ch0Data = Data(bytes: UnsafeMutablePointer<Int16>(channels[0]), count:Int(frameCapacity * format.streamDescription.pointee.mBytesPerFrame))
         return ch0Data
@@ -72,7 +72,7 @@ open class Decoder {
         assert(refCount == 0, "Can't free decoder, it's shared among instances")
     }
     
-    fileprivate func process_raw(_ data: Data) -> CInt {
+    @discardableResult fileprivate func process_raw(_ data: Data) -> CInt {
         //Sphinx expect words of 2 bytes but the NSFileHandle read one byte at time so the lenght of the data for sphinx is the half of the real one.
         let dataLenght = data.count / 2
         let numberOfFrames = ps_process_raw(psDecoder, (data as NSData).bytes.bindMemory(to: int16.self, capacity: data.count), dataLenght, SFalse, SFalse)
@@ -96,11 +96,11 @@ open class Decoder {
         return ps_get_in_speech(psDecoder) == 1
     }
     
-    fileprivate func start_utt() -> Bool {
+    @discardableResult fileprivate func start_utt() -> Bool {
         return ps_start_utt(psDecoder) == 0
     }
     
-    fileprivate func end_utt() -> Bool {
+    @discardableResult fileprivate func end_utt() -> Bool {
         return ps_end_utt(psDecoder) == 0
     }
     
@@ -156,7 +156,7 @@ open class Decoder {
     
     open func decodeSpeechAtPath (_ filePath: String, complete: @escaping (Hypothesis?) -> ()) {
         
-        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async {
+        DispatchQueue.global().async {
             
             let hypothesis = self.hypotesisForSpeechAtPath(filePath)
             
@@ -187,14 +187,14 @@ open class Decoder {
 
         input.installTap(onBus: 0, bufferSize: 4096, format: formatIn, block: { (buffer: AVAudioPCMBuffer!, time: AVAudioTime!) -> Void in
 
-            let audioData = buffer.toNSDate()
+            let audioData = buffer.toDate()
             self.process_raw(audioData)
 
             if self.speechState == .utterance {
 
                 self.end_utt()
                 let hypothesis = self.get_hyp()
-                
+
                 DispatchQueue.main.async(execute: { 
                     utteranceComplete(hypothesis)
                 })
