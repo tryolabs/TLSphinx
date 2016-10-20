@@ -105,11 +105,14 @@ open class Decoder {
     }
     
     fileprivate func get_hyp() -> Hypothesis? {
-        var score: CInt = 0
-        let string: UnsafePointer<CChar> = ps_get_hyp(psDecoder, &score)
-        
-        if let text = String(validatingUTF8: string) {
-            return Hypothesis(text: text, score: Int(score))
+        var score: int32 = 0
+
+        if let string = ps_get_hyp(psDecoder, &score) {
+            if let text = String(validatingUTF8: string) {
+                return Hypothesis(text: text, score: Int(score))
+            } else {
+                return nil
+            }
         } else {
             return nil
         }
