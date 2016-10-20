@@ -14,23 +14,23 @@ import TLSphinx
 class BasicTests: XCTestCase {
     
     func getModelPath() -> String? {
-        return NSBundle(forClass: BasicTests.self).pathForResource("en-us", ofType: nil)
+        return Bundle(for: BasicTests.self).path(forResource: "en-us", ofType: nil)
     }
     
     func testConfig() {
         
         if let modelPath = getModelPath() {
             
-            let hmm = (modelPath as NSString).stringByAppendingPathComponent("en-us")
-            let lm = (modelPath as NSString).stringByAppendingPathComponent("en-us.lm.dmp")
-            let dict = (modelPath as NSString).stringByAppendingPathComponent("cmudict-en-us.dict")
+            let hmm = (modelPath as NSString).appendingPathComponent("en-us")
+            let lm = (modelPath as NSString).appendingPathComponent("en-us.lm.dmp")
+            let dict = (modelPath as NSString).appendingPathComponent("cmudict-en-us.dict")
             
             let config = Config(args: ("-hmm", hmm), ("-lm", lm), ("-dict", dict))
             
             XCTAssert(config != nil, "Pass")
             
         } else {
-            XCTFail("Can't access pocketsphinx model. Bundle root: \(NSBundle.mainBundle())")
+            XCTFail("Can't access pocketsphinx model. Bundle root: \(Bundle.main)")
         }
     }
     
@@ -38,9 +38,9 @@ class BasicTests: XCTestCase {
         
         if let modelPath = getModelPath() {
             
-            let hmm = (modelPath as NSString).stringByAppendingPathComponent("en-us")
-            let lm = (modelPath as NSString).stringByAppendingPathComponent("en-us.lm.dmp")
-            let dict = (modelPath as NSString).stringByAppendingPathComponent("cmudict-en-us.dict")
+            let hmm = (modelPath as NSString).appendingPathComponent("en-us")
+            let lm = (modelPath as NSString).appendingPathComponent("en-us.lm.dmp")
+            let dict = (modelPath as NSString).appendingPathComponent("cmudict-en-us.dict")
             
             if let config = Config(args: ("-hmm", hmm), ("-lm", lm), ("-dict", dict)) {
                 let decoder = Decoder(config:config)
@@ -51,7 +51,7 @@ class BasicTests: XCTestCase {
             }
             
         } else {
-            XCTFail("Can't access pocketsphinx model. Bundle root: \(NSBundle.mainBundle())")
+            XCTFail("Can't access pocketsphinx model. Bundle root: \(Bundle.main)")
         }
     }
     
@@ -59,15 +59,15 @@ class BasicTests: XCTestCase {
         
         if let modelPath = getModelPath() {
             
-            let hmm = (modelPath as NSString).stringByAppendingPathComponent("en-us")
-            let lm = (modelPath as NSString).stringByAppendingPathComponent("en-us.lm.dmp")
-            let dict = (modelPath as NSString).stringByAppendingPathComponent("cmudict-en-us.dict")
+            let hmm = (modelPath as NSString).appendingPathComponent("en-us")
+            let lm = (modelPath as NSString).appendingPathComponent("en-us.lm.dmp")
+            let dict = (modelPath as NSString).appendingPathComponent("cmudict-en-us.dict")
             
             if let config = Config(args: ("-hmm", hmm), ("-lm", lm), ("-dict", dict)) {
                 if let decoder = Decoder(config:config) {
                     
-                    let audioFile = (modelPath as NSString).stringByAppendingPathComponent("goforward.raw")
-                    let expectation = expectationWithDescription("Decode finish")
+                    let audioFile = (modelPath as NSString).appendingPathComponent("goforward.raw")
+                    let expectation = self.expectation(description: "Decode finish")
                     
                     decoder.decodeSpeechAtPath(audioFile) {
                         
@@ -83,7 +83,7 @@ class BasicTests: XCTestCase {
                         expectation.fulfill()
                     }
                     
-                    waitForExpectationsWithTimeout(NSTimeIntervalSince1970, handler: { (_) -> Void in
+                    waitForExpectations(timeout: NSTimeIntervalSince1970, handler: { (_) -> Void in
                         
                     })
                     
@@ -96,7 +96,7 @@ class BasicTests: XCTestCase {
             }
             
         } else {
-            XCTFail("Can't access pocketsphinx model. Bundle root: \(NSBundle.mainBundle())")
+            XCTFail("Can't access pocketsphinx model. Bundle root: \(Bundle.main)")
         }
         
     }
