@@ -14,16 +14,16 @@ import TLSphinx
 class LiveDecode: XCTestCase {
     
     func getModelPath() -> String? {
-        return NSBundle(forClass: LiveDecode.self).pathForResource("en-us", ofType: nil)
+        return Bundle(for: LiveDecode.self).path(forResource: "en-us", ofType: nil)
     }
 
     func testAVAudioRecorder() {
         
         if let modelPath = getModelPath() {
             
-            let hmm = (modelPath as NSString).stringByAppendingPathComponent("en-us")
-            let lm = (modelPath as NSString).stringByAppendingPathComponent("en-us.lm.dmp")
-            let dict = (modelPath as NSString).stringByAppendingPathComponent("cmudict-en-us.dict")
+            let hmm = (modelPath as NSString).appendingPathComponent("en-us")
+            let lm = (modelPath as NSString).appendingPathComponent("en-us.lm.dmp")
+            let dict = (modelPath as NSString).appendingPathComponent("cmudict-en-us.dict")
             
             if let config = Config(args: ("-hmm", hmm), ("-lm", lm), ("-dict", dict)) {
                 
@@ -34,14 +34,14 @@ class LiveDecode: XCTestCase {
                         print("Utterance: \(hyp)")
                     }
                     
-                    let expectation = expectationWithDescription("")
+                    let theExpectation = expectation(description: "")
                     
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(15.0 * Double(NSEC_PER_SEC))) , dispatch_get_main_queue(), { () -> Void in
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime(uptimeNanoseconds: DispatchTime.now().rawValue) + Double(Int64(15.0 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)) {
                         decoder.stopDecodingSpeech()
-                        expectation.fulfill()
-                    })
+                        theExpectation.fulfill()
+                    }
                     
-                    waitForExpectationsWithTimeout(NSTimeIntervalSince1970, handler: nil)
+                    waitForExpectations(timeout: NSTimeIntervalSince1970, handler: nil)
                 }
                 
             } else {
@@ -49,7 +49,7 @@ class LiveDecode: XCTestCase {
             }
             
         } else {
-            XCTFail("Can't access pocketsphinx model. Bundle root: \(NSBundle.mainBundle())")
+            XCTFail("Can't access pocketsphinx model. Bundle root: \(Bundle.main)")
         }
     }
 
