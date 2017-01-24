@@ -23,8 +23,10 @@ extension Hypothesis : CustomStringConvertible {
     
 }
 
-func +(lhs: Hypothesis, rhs: Hypothesis) -> Hypothesis {
-    return Hypothesis(text: lhs.text + " " + rhs.text, score: (lhs.score + rhs.score) / 2)
+extension Hypothesis {
+    static func +(lhs: Hypothesis, rhs: Hypothesis) -> Hypothesis {
+        return Hypothesis(text: lhs.text + " " + rhs.text, score: (lhs.score + rhs.score) / 2)
+    }
 }
 
 func +(lhs: Hypothesis?, rhs: Hypothesis?) -> Hypothesis? {

@@ -22,7 +22,7 @@ public final class Config {
             return [strdup(name),strdup(value)]
         }
         
-        cmdLnConf = cmd_ln_parse_r(nil, ps_args(), CInt(cArgs.count), &cArgs, STrue)
+        cmdLnConf = cmd_ln_parse_r(nil, ps_args(), CInt(cArgs.count), &cArgs, STrue32)
         
         if cmdLnConf == nil {
             return nil
