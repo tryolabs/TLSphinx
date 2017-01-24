@@ -11,7 +11,7 @@ import AVFoundation
 import Sphinx
 
 
-private enum SpeechStateEnum : CustomStringConvertible {
+fileprivate enum SpeechStateEnum : CustomStringConvertible {
     case silence
     case speech
     case utterance
@@ -31,7 +31,7 @@ private enum SpeechStateEnum : CustomStringConvertible {
 }
 
 
-private extension AVAudioPCMBuffer {
+fileprivate extension AVAudioPCMBuffer {
 
     func toDate() -> Data {
         let channels = UnsafeBufferPointer(start: int16ChannelData, count: 1)
@@ -42,13 +42,20 @@ private extension AVAudioPCMBuffer {
 }
 
 
-open class Decoder {
+public enum DecodeErrors : Error {
+    case CantReadSpeachFile(String)
+    case CantSetAudioSession(NSError)
+    case NoAudioInputAvailable
+    case CantStartAudioEngine(NSError)
+    case CantAddWordsWhileDecodeingSpeech
+}
+
+
+public final class Decoder {
     
     fileprivate var psDecoder: OpaquePointer?
     fileprivate var engine: AVAudioEngine!
     fileprivate var speechState: SpeechStateEnum
-    
-    open var bufferSize: Int = 2048
     
     public init?(config: Config) {
         
@@ -69,7 +76,7 @@ open class Decoder {
     
     deinit {
         let refCount = ps_free(psDecoder)
-        assert(refCount == 0, "Can't free decoder, it's shared among instances")
+        assert(refCount == 0, "Can't free decoder because it's shared among instances")
     }
     
     @discardableResult fileprivate func process_raw(_ data: Data) -> CInt {
@@ -216,7 +223,7 @@ open class Decoder {
         }
     }
 
-    open func stopDecodingSpeech () {
+    public func stopDecodingSpeech () {
         engine.stop()
         engine.mainMixerNode.removeTap(onBus: 0)
         engine.reset()
