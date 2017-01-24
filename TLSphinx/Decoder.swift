@@ -181,13 +181,35 @@ public final class Decoder {
             throw DecodeErrors.NoAudioInputAvailable
         }
 
-        let formatIn = AVAudioFormat(commonFormat: .pcmFormatInt16, sampleRate: 44100, channels: 1, interleaved: false)
-        engine.connect(input, to: engine.outputNode, format: formatIn)
+        let mixer = AVAudioMixerNode()
+        engine.attach(mixer)
+        engine.connect(input, to: mixer, format: input.outputFormat(forBus: 0))
 
-        input.installTap(onBus: 0, bufferSize: 4096, format: formatIn, block: { (buffer: AVAudioPCMBuffer!, time: AVAudioTime!) -> Void in
+        let formatIn = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: 16000, channels: 1, interleaved: false)
+        let formatOut = AVAudioFormat(commonFormat: .pcmFormatInt16, sampleRate: 16000, channels: 1, interleaved: false)
+        let bufferMapper = AVAudioConverter(from: formatIn, to: formatOut)
 
-            let audioData = buffer.toDate()
+        mixer.installTap(onBus: 0, bufferSize: 2048, format: formatIn, block: {
+            [unowned self] (buffer: AVAudioPCMBuffer!, time: AVAudioTime!) in
+
+            let sphinxBuffer = AVAudioPCMBuffer(pcmFormat: formatOut, frameCapacity: buffer.frameCapacity)
+
+            //This is needed because the 'frameLenght' default value is 0 (since iOS 10) and cause the 'convert' call
+            //to faile with an error (Error Domain=NSOSStatusErrorDomain Code=-50 "(null)")
+            //More here: http://stackoverflow.com/questions/39714244/avaudioconverter-is-broken-in-ios-10
+            sphinxBuffer.frameLength = sphinxBuffer.frameCapacity
+
+            do {
+                try bufferMapper.convert(to: sphinxBuffer, from: buffer)
+            } catch(let error as NSError) {
+                print(error)
+                return
+            }
+
+            let audioData = sphinxBuffer.toData()
             self.process_raw(audioData)
+
+            print("Process: \(buffer.frameLength) frames - \(audioData.count) bytes - sample time: \(time.sampleTime)")
 
             if self.speechState == .utterance {
 
@@ -202,9 +224,6 @@ public final class Decoder {
             }
         })
 
-        engine.mainMixerNode.outputVolume = 0.0
-        engine.prepare()
-
         start_utt()
 
         do {
@@ -218,8 +237,6 @@ public final class Decoder {
 
     public func stopDecodingSpeech () {
         engine.stop()
-        engine.mainMixerNode.removeTap(onBus: 0)
-        engine.reset()
         engine = nil
     }
 }
