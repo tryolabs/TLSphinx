@@ -90,47 +90,61 @@ class BasicTests: XCTestCase {
             expectation.fulfill()
         }
         
-        if let modelPath = getModelPath() {
-            
-            let hmm = (modelPath as NSString).appendingPathComponent("en-us")
-            let lm = (modelPath as NSString).appendingPathComponent("en-us.lm.dmp")
-            let dict = (modelPath as NSString).appendingPathComponent("cmudict-en-us.dict")
-            
-            if let config = Config(args: ("-hmm", hmm), ("-lm", lm), ("-dict", dict)) {
-                if let decoder = Decoder(config:config) {
-                    
-                    let audioFile = (modelPath as NSString).appendingPathComponent("goforward.raw")
-                    let expectation = self.expectation(description: "Decode finish")
-                    
-                    decoder.decodeSpeechAtPath(audioFile) {
-                        
-                        if let hyp = $0 {
-                            
-                            print("Text: \(hyp.text) - Score: \(hyp.score)")
-                            XCTAssert(hyp.text == "go forward ten meters", "Pass")
-                            
-                        } else {
-                            XCTFail("Fail to decode audio")
-                        }
-                        
-                        expectation.fulfill()
-                    }
-                    
-                    waitForExpectations(timeout: NSTimeIntervalSince1970, handler: { (_) -> Void in
-                        
-                    })
-                    
-                } else {
-                    XCTFail("Can't run test without a decoder")
-                }
-                
-            } else {
-                XCTFail("Can't run test without a valid config")
-            }
-            
-        } else {
+        waitForExpectations(timeout: NSTimeIntervalSince1970)
+    }
+
+    func testAddWordToLenguageModel() {
+
+        guard let modelPath = getModelPath() else {
             XCTFail("Can't access pocketsphinx model. Bundle root: \(Bundle.main)")
+            return
         }
-        
+
+        let basicModelPath = (modelPath.appendingPathComponent("basic-lm") as NSString)
+        let hmm = modelPath.appendingPathComponent("en-us")
+        let lm = basicModelPath.appendingPathComponent("6844.lm")
+        let dict = basicModelPath.appendingPathComponent("6844.dic")
+
+        guard let config = Config(args: ("-hmm", hmm), ("-lm", lm), ("-dict", dict)) else {
+            XCTFail("Can't run test without a valid config")
+            return
+        }
+
+        guard let decoder = Decoder(config:config) else {
+            XCTFail("Can't run test without a decoder")
+            return
+        }
+
+        let audioFile = modelPath.appendingPathComponent("goforward.raw")
+        let expectation = self.expectation(description: "Decode finish")
+
+        try! decoder.decodeSpeech(atPath: audioFile) { [unowned decoder] in
+
+            if let hyp = $0 {
+
+                print("Text: \(hyp.text) - Score: \(hyp.score)")
+                XCTAssert(hyp.text == "GO FORWARD TEN", "Pass")
+
+                try! decoder.add(words:[("METERS","M IY T ER Z")])
+
+                try! decoder.decodeSpeech(atPath: audioFile) {
+                    if let hyp = $0 {
+
+                        print("Text: \(hyp.text) - Score: \(hyp.score)")
+                        XCTAssert(hyp.text == "GO FORWARD TEN METERS", "Pass")
+                    } else {
+                        XCTFail("Fail to decode audio")
+                    }
+
+                    expectation.fulfill()
+                }
+
+            } else {
+                XCTFail("Fail to decode audio")
+                expectation.fulfill()
+            }
+        }
+
+        waitForExpectations(timeout: NSTimeIntervalSince1970)
     }
 }

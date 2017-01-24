@@ -239,4 +239,16 @@ public final class Decoder {
         engine.stop()
         engine = nil
     }
+
+    public func add(words:Array<(word: String, phones: String)>) throws {
+
+        guard engine == nil || !engine.isRunning else {
+            throw DecodeErrors.CantAddWordsWhileDecodeingSpeech
+        }
+
+        for (word,phones) in words {
+            let update = words.last?.word == word ? STrue32 : SFalse32
+            ps_add_word(psDecoder, word, phones, update)
+        }
+    }
 }
