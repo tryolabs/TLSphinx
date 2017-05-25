@@ -9,7 +9,7 @@
 import Foundation
 import Sphinx.Base
 
-open class Config {
+public final class Config {
     
     var cmdLnConf: OpaquePointer?
     fileprivate var cArgs: [UnsafeMutablePointer<Int8>?]
@@ -22,7 +22,7 @@ open class Config {
             return [strdup(name),strdup(value)]
         }
         
-        cmdLnConf = cmd_ln_parse_r(nil, ps_args(), CInt(cArgs.count), &cArgs, STrue)
+        cmdLnConf = cmd_ln_parse_r(nil, ps_args(), CInt(cArgs.count), &cArgs, STrue32)
         
         if cmdLnConf == nil {
             return nil
@@ -38,7 +38,7 @@ open class Config {
     }
     
     
-    open var showDebugInfo: Bool {
+    public var showDebugInfo: Bool {
         get {
             if cmdLnConf != nil {
                 return cmd_ln_str_r(cmdLnConf, "-logfn") == nil
