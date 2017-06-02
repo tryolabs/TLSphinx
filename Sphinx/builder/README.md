@@ -27,7 +27,7 @@ cd Sphinx/builder/
 
 ---
 ## Manual Compilation
-If possible please try automatic compilation when possible, manual compilation is not for the feint of heart yet it might help in scenarios where you want to build CMU Sphinx Base and Pocket Sphinx from their respective master branches. 
+If possible please try automatic compilation when possible, manual compilation is not for the faint of heart yet it might help in scenarios where you want to build CMU Sphinx Base and Pocket Sphinx from their respective master branches. 
 
 Below are sample instructions on how to manually build the **5prealpha** release, to build against the lastest source just modify each command accordingly.
 ### Sphinxbase
