@@ -71,7 +71,8 @@ cp -f bin/arm64/lib/libpocketsphinx.a ../../../lib/pocketsphinx/arm64/ &&
 cp -f bin/armv7/lib/libpocketsphinx.a ../../../lib/pocketsphinx/armv7/ &&
 cp -f bin/armv7s/lib/libpocketsphinx.a ../../../lib/pocketsphinx/armv7s/ &&
 cp -f bin/i386/lib/libpocketsphinx.a ../../../lib/pocketsphinx/i386/ &&
-cp -f bin/x86_64/lib/libpocketsphinx.a ../../../lib/pocketsphinx/x86_64/ || exit 1
+cp -f bin/x86_64/lib/libpocketsphinx.a ../../../lib/pocketsphinx/x86_64/ &&
+cp -f bin/libpocketsphinx.a ../../../lib/pocketsphinx/ || exit 1
 echo
 echo "Installing PocketSphinx headers..."
 cp -vf include/*.h ../../../include/pocketsphinx/ || exit 1

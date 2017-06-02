@@ -27,7 +27,7 @@ cd Sphinx/builder/
 
 ---
 ## Manual Compilation
-If possible please try automatic compilation when possible, manual compilation is not for the faint of heart yet it might help in scenarios where you want to build CMU Sphinx Base and Pocket Sphinx from their respective master branches. 
+If possible please try automatic compilation when possible, manual compilation is not for the feint of heart yet it might help in scenarios where you want to build CMU Sphinx Base and Pocket Sphinx from their respective master branches. 
 
 Below are sample instructions on how to manually build the **5prealpha** release, to build against the lastest source just modify each command accordingly.
 ### Sphinxbase
@@ -83,6 +83,7 @@ cp bin/armv7/lib/libpocketsphinx.a ../../../lib/pocketsphinx/armv7/
 cp bin/armv7s/lib/libpocketsphinx.a ../../../lib/pocketsphinx/armv7s/
 cp bin/i386/lib/libpocketsphinx.a ../../../lib/pocketsphinx/i386/
 cp bin/x86_64/lib/libpocketsphinx.a ../../../lib/pocketsphinx/x86_64/
+cp bin/libpocketsphinx.a ../../../lib/pocketsphinx/
 ```
 #### Install Headers
 ```
