@@ -77,7 +77,7 @@ typedef enum ngram_file_type_e {
     NGRAM_INVALID = -1, /**< Not a valid file type. */
     NGRAM_AUTO,  /**< Determine file type automatically. */
     NGRAM_ARPA,  /**< ARPABO text format (the standard). */
-    NGRAM_BIN,   /**< Sphinx .DMP format. */
+    NGRAM_BIN    /**< Sphinx .DMP format. */
 } ngram_file_type_t;
 
 #define NGRAM_INVALID_WID -1 /**< Impossible word ID */
@@ -281,7 +281,7 @@ int32 ngram_probv(ngram_model_t *model, const char *word, ...);
  * unigram weight (interpolation with uniform) is not removed.
  */
 SPHINXBASE_EXPORT
-int32 ngram_prob(ngram_model_t *model, const char *const *words, int32 n);
+int32 ngram_prob(ngram_model_t *model, const char* const *words, int32 n);
 
 /**
  * Quick "raw" probability lookup for a general N-Gram.
