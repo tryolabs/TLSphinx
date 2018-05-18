@@ -46,9 +46,9 @@ fileprivate extension AVAudioPCMBuffer {
 public enum DecodeErrors : Error {
     case CantReadSpeachFile(String)
     case CantSetAudioSession(NSError)
-    case NoAudioInputAvailable
     case CantStartAudioEngine(NSError)
     case CantAddWordsWhileDecodeingSpeech
+    case CantConvertAudioFormat
 }
 
 
@@ -177,22 +177,31 @@ public final class Decoder {
 
         engine = AVAudioEngine()
 
-        guard let input = engine.inputNode else {
-            throw DecodeErrors.NoAudioInputAvailable
-        }
-
+        let input = engine.inputNode
         let mixer = AVAudioMixerNode()
         engine.attach(mixer)
         engine.connect(input, to: mixer, format: input.outputFormat(forBus: 0))
 
-        let formatIn = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: 16000, channels: 1, interleaved: false)
-        let formatOut = AVAudioFormat(commonFormat: .pcmFormatInt16, sampleRate: 16000, channels: 1, interleaved: false)
-        let bufferMapper = AVAudioConverter(from: formatIn, to: formatOut)
+        // We forceunwrap this because the docs for AVAudioFormat specify that this constructor return nil when the channels
+        // are grater than 2.
+        let formatIn = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: 16000, channels: 1, interleaved: false)!
+        let formatOut = AVAudioFormat(commonFormat: .pcmFormatInt16, sampleRate: 16000, channels: 1, interleaved: false)!
+        guard let bufferMapper = AVAudioConverter(from: formatIn, to: formatOut) else {
+            // Returns nil if the format conversion is not possible.
+            throw DecodeErrors.CantConvertAudioFormat
+        }
 
         mixer.installTap(onBus: 0, bufferSize: 2048, format: formatIn, block: {
             [unowned self] (buffer: AVAudioPCMBuffer!, time: AVAudioTime!) in
 
-            let sphinxBuffer = AVAudioPCMBuffer(pcmFormat: formatOut, frameCapacity: buffer.frameCapacity)
+            guard let sphinxBuffer = AVAudioPCMBuffer(pcmFormat: formatOut, frameCapacity: buffer.frameCapacity) else {
+//                Returns nil in the following cases:
+//                    - if the format has zero bytes per frame (format.streamDescription->mBytesPerFrame == 0)
+//                    - if the buffer byte capacity (frameCapacity * format.streamDescription->mBytesPerFrame)
+//                    cannot be represented by an uint32_t
+                print("Can't create PCM buffer")
+                return
+            }
 
             //This is needed because the 'frameLenght' default value is 0 (since iOS 10) and cause the 'convert' call
             //to faile with an error (Error Domain=NSOSStatusErrorDomain Code=-50 "(null)")

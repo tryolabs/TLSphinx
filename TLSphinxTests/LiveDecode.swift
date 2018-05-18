@@ -40,7 +40,7 @@ class LiveDecode: XCTestCase {
             return
         }
 
-        try! decoder.startDecodingSpeech { print("Utterance: \($0)") }
+        try! decoder.startDecodingSpeech { print("Utterance: \(String(describing: $0))") }
 
         let theExpectation = expectation(description: "")
         
