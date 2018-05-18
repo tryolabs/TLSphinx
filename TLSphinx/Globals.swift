@@ -8,19 +8,22 @@
 
 import Foundation
 
-let STrue: CInt = 1
-let SFalse: CInt = 0
+let STrue: uint8 = 1
+let SFalse: uint8 = 0
 
-extension NSFileHandle {
+let STrue32: CInt = 1
+let SFalse32: CInt = 0
+
+extension FileHandle {
     
-    func reduceChunks<T>(size: Int, initial: T, reducer: (NSData, T) -> T) -> T {
+    func reduceChunks<T>(_ size: Int, initial: T, reducer: (Data, T) -> T) -> T {
         
         var reduceValue = initial
-        var chuckData = readDataOfLength(size)
+        var chuckData = readData(ofLength: size)
         
-        while chuckData.length > 0 {
+        while chuckData.count > 0 {
             reduceValue = reducer(chuckData, reduceValue)
-            chuckData = readDataOfLength(size)
+            chuckData = readData(ofLength: size)
         }
         
         return reduceValue

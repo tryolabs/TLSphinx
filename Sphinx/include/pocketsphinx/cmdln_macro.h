@@ -62,13 +62,11 @@
     { "-logfn",                                         \
             ARG_STRING,                                 \
             NULL,                                       \
-            "File to write log messages in"             \
-     },                                                 \
+            "File to write log messages in" },          \
     { "-debug",                                         \
             ARG_INT32,                                  \
             NULL,                                       \
-            "Verbosity level for debugging messages"    \
-     },                                                 \
+            "Verbosity level for debugging messages" }, \
      { "-mfclogdir",                                    \
              ARG_STRING,                                \
              NULL,                                      \
@@ -78,7 +76,7 @@
             ARG_STRING,                                 \
             NULL,                                       \
             "Directory to log raw audio files to" },    \
-     { "-senlogdir",                                    \
+    { "-senlogdir",                                     \
              ARG_STRING,                                \
              NULL,                                      \
              "Directory to log senone score files to"   \
@@ -156,7 +154,7 @@
 { "-backtrace",                                                                                 \
       ARG_BOOLEAN,                                                                              \
       "no",                                                                                     \
-      "Print results and backtraces to log file." },                                            \
+      "Print results and backtraces to log." },                                                 \
 { "-latsize",                                                                                   \
       ARG_INT32,                                                                                \
       "5000",                                                                                   \
@@ -182,7 +180,7 @@
       "25",                                                                    	                \
       "Window of frames in lattice to search for successor words in fwdflat search " }
 
-/** Command-line options for keyword spotting */
+/** Command-line options for keyphrase spotting */
 #define POCKETSPHINX_KWS_OPTIONS \
 { "-keyphrase",                                                 \
          ARG_STRING,                                            \
@@ -195,7 +193,11 @@
 { "-kws_plp",                                                   \
       ARG_FLOAT64,                                              \
       "1e-1",                                                   \
-      "Phone loop probability for keyword spotting" },          \
+      "Phone loop probability for keyphrase spotting" },          \
+{ "-kws_delay",                                                 \
+      ARG_INT32,                                                \
+      "10",                                                     \
+      "Delay to wait for best detection score" },               \
 { "-kws_threshold",                                             \
       ARG_FLOAT64,                                              \
       "1",                                                      \
@@ -241,7 +243,7 @@
 { "-lmctl",										\
       ARG_STRING,									\
       NULL,										\
-      "Specify a set of language model\n"},						\
+      "Specify a set of language model"},						\
 { "-lmname",										\
       ARG_STRING,									\
       NULL,									\

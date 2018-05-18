@@ -39,7 +39,7 @@
  * There are different possible search modes:
  * 
  * <ul>
- * <li>keyword - efficiently looks for keyphrase and ignores other speech. allows to configure detection threshold.</li>
+ * <li>keyphrase - efficiently looks for keyphrase and ignores other speech. allows to configure detection threshold.</li>
  * <li>grammar - recognizes speech according to JSGF grammar. Unlike keyphrase grammar search doesn't ignore words which are not in grammar but tries to recognize them.</li>
  * <li>ngram/lm - recognizes natural speech with a language model.</li>
  * <li>allphone - recognizes phonemes with a phonetic language model.</li>
@@ -47,17 +47,18 @@
  * 
  * Each search has a name and can be referenced by a name, names are
  * application-specific. The function ps_set_search allows to activate
- * the search previously added by a name. 
+ * the search previously added by a name. Only single search can be
+ * activated at time.
  *
  * To add the search one needs to point to the grammar/language model
  * describing the search. The location of the grammar is specific to the
  * application.
  * 
  * The exact design of a searches depends on your application. For
- * example, you might want to listen for activation keyword first and once
- * keyword is recognized switch to ngram search to recognize actual
+ * example, you might want to listen for activation keyphrase first and once
+ * keyphrase is recognized switch to ngram search to recognize actual
  * command. Once you recognized the command you can switch to grammar
- * search to recognize the confirmation and then switch back to keyword listening
+ * search to recognize the confirmation and then switch back to keyphrase listening
  * mode to wait for another command.
  *
  * If only a simple recognition is required it is sufficient to add a single search or
@@ -67,12 +68,15 @@
 #ifndef __PS_SEARCH_H__
 #define __PS_SEARCH_H__
 
+#include <sphinxbase/fsg_model.h>
+#include <sphinxbase/ngram_model.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-#include <sphinxbase/fsg_model.h>
-#include <sphinxbase/ngram_model.h>
+#if 0
+}
+#endif
 
 /**
  * PocketSphinx search iterator.
@@ -86,7 +90,7 @@ typedef struct ps_search_iter_s ps_search_iter_t;
  * Activates search with the provided name. The search must be added before
  * using either ps_set_fsg(), ps_set_lm() or ps_set_kws().
  *
- * @return 0 on success, 1 on failure
+ * @return 0 on success, -1 on failure
  */
 POCKETSPHINX_EXPORT
 int ps_set_search(ps_decoder_t *ps, const char *name);
@@ -247,7 +251,7 @@ POCKETSPHINX_EXPORT
 const char* ps_get_kws(ps_decoder_t *ps, const char *name);
 
 /**
- * Adds keywords from a file to spotting
+ * Adds keyphrases from a file to spotting
  *
  * Associates KWS search with the provided name. The search can be activated
  * using ps_set_search().
@@ -258,7 +262,7 @@ POCKETSPHINX_EXPORT
 int ps_set_kws(ps_decoder_t *ps, const char *name, const char *keyfile);
 
 /**
- * Adds new keyword to spot
+ * Adds new keyphrase to spot
  *
  * Associates KWS search with the provided name. The search can be activated
  * using ps_set_search().

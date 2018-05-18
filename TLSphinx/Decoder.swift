@@ -11,19 +11,19 @@ import AVFoundation
 import Sphinx
 
 
-private enum SpeechStateEnum : CustomStringConvertible {
-    case Silence
-    case Speech
-    case Utterance
+fileprivate enum SpeechStateEnum : CustomStringConvertible {
+    case silence
+    case speech
+    case utterance
     
     var description: String {
         get {
             switch(self) {
-            case .Silence:
+            case .silence:
                 return "Silence"
-            case .Speech:
+            case .speech:
                 return "Speech"
-            case .Utterance:
+            case .utterance:
                 return "Utterance"
             }
         }
@@ -31,60 +31,63 @@ private enum SpeechStateEnum : CustomStringConvertible {
 }
 
 
-private extension AVAudioPCMBuffer {
+fileprivate extension AVAudioPCMBuffer {
 
-    func toNSDate() -> NSData {
+    func toData() -> Data {
         let channels = UnsafeBufferPointer(start: int16ChannelData, count: 1)
-        let ch0Data = NSData(bytes: channels[0], length:Int(frameCapacity * format.streamDescription.memory.mBytesPerFrame))
+        let ch0Data = Data(bytes: UnsafeMutablePointer<int16>(channels[0]),
+                           count: Int(frameCapacity * format.streamDescription.pointee.mBytesPerFrame))
         return ch0Data
     }
 
 }
 
 
-public class Decoder {
+public enum DecodeErrors : Error {
+    case CantReadSpeachFile(String)
+    case CantSetAudioSession(NSError)
+    case CantStartAudioEngine(NSError)
+    case CantAddWordsWhileDecodeingSpeech
+    case CantConvertAudioFormat
+}
+
+
+public final class Decoder {
     
-    private var psDecoder: COpaquePointer
-    private var engine: AVAudioEngine!
-    private var speechState: SpeechStateEnum
-    
-    public var bufferSize: Int = 2048
+    fileprivate var psDecoder: OpaquePointer?
+    fileprivate var engine: AVAudioEngine!
+    fileprivate var speechState: SpeechStateEnum
     
     public init?(config: Config) {
         
-        speechState = .Silence
-        
-        if config.cmdLnConf != nil{
-            psDecoder = ps_init(config.cmdLnConf)
-            
-            if psDecoder == nil {
-                return nil
-            }
-            
-        } else {
-            psDecoder = nil
+        speechState = .silence
+        psDecoder = config.cmdLnConf.flatMap(ps_init)
+
+        if psDecoder == nil {
             return nil
         }
     }
     
     deinit {
         let refCount = ps_free(psDecoder)
-        assert(refCount == 0, "Can't free decoder, it's shared among instances")
+        assert(refCount == 0, "Can't free decoder because it's shared among instances")
     }
     
-    private func process_raw(data: NSData) -> CInt {
-        //Sphinx expect words of 2 bytes but the NSFileHandle read one byte at time so the lenght of the data for sphinx is the half of the real one.
-        let dataLenght = data.length / 2
-        let numberOfFrames = ps_process_raw(psDecoder, UnsafePointer(data.bytes), dataLenght, SFalse, SFalse)
+    @discardableResult fileprivate func process_raw(_ data: Data) -> CInt {
+
+        let dataLenght = data.count / 2
+        let numberOfFrames = data.withUnsafeBytes { (bytes : UnsafePointer<Int16>) -> Int32 in
+            ps_process_raw(psDecoder, bytes, dataLenght, SFalse32, SFalse32)
+        }
         let hasSpeech = in_speech()
         
         switch (speechState) {
-        case .Silence where hasSpeech:
-            speechState = .Speech
-        case .Speech where !hasSpeech:
-            speechState = .Utterance
-        case .Utterance where !hasSpeech:
-            speechState = .Silence
+        case .silence where hasSpeech:
+            speechState = .speech
+        case .speech where !hasSpeech:
+            speechState = .utterance
+        case .utterance where !hasSpeech:
+            speechState = .silence
         default:
             break
         }
@@ -92,116 +95,143 @@ public class Decoder {
         return numberOfFrames
     }
     
-    private func in_speech() -> Bool {
-        return ps_get_in_speech(psDecoder) == 1
+    fileprivate func in_speech() -> Bool {
+        return ps_get_in_speech(psDecoder) == STrue
     }
     
-    private func start_utt() -> Bool {
+    @discardableResult fileprivate func start_utt() -> Bool {
         return ps_start_utt(psDecoder) == 0
     }
     
-    private func end_utt() -> Bool {
+    @discardableResult fileprivate func end_utt() -> Bool {
         return ps_end_utt(psDecoder) == 0
     }
     
-    private func get_hyp() -> Hypothesis? {
-        var score: CInt = 0
-        let string: UnsafePointer<CChar> = ps_get_hyp(psDecoder, &score)
-        
-        if let text = String.fromCString(string) {
+    fileprivate func get_hyp() -> Hypothesis? {
+        var score: int32 = 0
+
+        guard let string = ps_get_hyp(psDecoder, &score) else {
+            return nil
+        }
+
+        if let text = String(validatingUTF8: string) {
             return Hypothesis(text: text, score: Int(score))
         } else {
             return nil
         }
     }
-    
-    private func hypotesisForSpeechAtPath (filePath: String) -> Hypothesis? {
-        
-        if let fileHandle = NSFileHandle(forReadingAtPath: filePath) {
-            
-            start_utt()
-            
-            let hypothesis = fileHandle.reduceChunks(bufferSize, initial: nil, reducer: { [unowned self] (data: NSData, partialHyp: Hypothesis?) -> Hypothesis? in
-                
-                self.process_raw(data)
-                
-                var resultantHyp = partialHyp
-                if self.speechState == .Utterance {
-                    
-                    self.end_utt()
-                    resultantHyp = partialHyp + self.get_hyp()
-                    self.start_utt()
-                }
-                
-                return resultantHyp
-            })
-            
-            end_utt()
-            fileHandle.closeFile()
-            
-            //Process any pending speech
-            if speechState == .Speech {
-                return hypothesis + get_hyp()
-            } else {
-                return hypothesis
+
+    fileprivate func hypotesisForSpeech (inFile fileHandle: FileHandle) -> Hypothesis? {
+
+        start_utt()
+
+        let hypothesis = fileHandle.reduceChunks(2048, initial: nil, reducer: {
+            (data: Data, partialHyp: Hypothesis?) -> Hypothesis? in
+
+            process_raw(data)
+
+            var resultantHyp = partialHyp
+            if speechState == .utterance {
+
+                end_utt()
+                resultantHyp = partialHyp + get_hyp()
+                start_utt()
             }
-            
+
+            return resultantHyp
+        })
+
+        end_utt()
+
+        //Process any pending speech
+        if speechState == .speech {
+            return hypothesis + get_hyp()
         } else {
-            return nil
+            return hypothesis
         }
     }
-    
-    public func decodeSpeechAtPath (filePath: String, complete: (Hypothesis?) -> ()) {
-        
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-            
-            let hypothesis = self.hypotesisForSpeechAtPath(filePath)
-            
-            dispatch_async(dispatch_get_main_queue()) {
+
+    public func decodeSpeech (atPath filePath: String, complete: @escaping (Hypothesis?) -> ()) throws {
+
+        guard let fileHandle = FileHandle(forReadingAtPath: filePath) else {
+            throw DecodeErrors.CantReadSpeachFile(filePath)
+        }
+
+        DispatchQueue.global().async {
+            let hypothesis = self.hypotesisForSpeech(inFile:fileHandle)
+            fileHandle.closeFile()
+            DispatchQueue.main.async {
                 complete(hypothesis)
             }
         }
     }
     
-    public func startDecodingSpeech (utteranceComplete: (Hypothesis?) -> ()) {
+    public func startDecodingSpeech (_ utteranceComplete: @escaping (Hypothesis?) -> ()) throws {
 
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryRecord)
         } catch let error as NSError {
             print("Error setting the shared AVAudioSession: \(error)")
-            return
+            throw DecodeErrors.CantSetAudioSession(error)
         }
 
         engine = AVAudioEngine()
 
-        guard let input = engine.inputNode else {
-            print("Can't get input node")
-            return
+        let input = engine.inputNode
+        let mixer = AVAudioMixerNode()
+        engine.attach(mixer)
+        engine.connect(input, to: mixer, format: input.outputFormat(forBus: 0))
+
+        // We forceunwrap this because the docs for AVAudioFormat specify that this constructor return nil when the channels
+        // are grater than 2.
+        let formatIn = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: 16000, channels: 1, interleaved: false)!
+        let formatOut = AVAudioFormat(commonFormat: .pcmFormatInt16, sampleRate: 16000, channels: 1, interleaved: false)!
+        guard let bufferMapper = AVAudioConverter(from: formatIn, to: formatOut) else {
+            // Returns nil if the format conversion is not possible.
+            throw DecodeErrors.CantConvertAudioFormat
         }
 
-        let formatIn = AVAudioFormat(commonFormat: .PCMFormatInt16, sampleRate: 44100, channels: 1, interleaved: false)
-        engine.connect(input, to: engine.outputNode, format: formatIn)
+        mixer.installTap(onBus: 0, bufferSize: 2048, format: formatIn, block: {
+            [unowned self] (buffer: AVAudioPCMBuffer!, time: AVAudioTime!) in
 
-        input.installTapOnBus(0, bufferSize: 4096, format: formatIn, block: { (buffer: AVAudioPCMBuffer!, time: AVAudioTime!) -> Void in
+            guard let sphinxBuffer = AVAudioPCMBuffer(pcmFormat: formatOut, frameCapacity: buffer.frameCapacity) else {
+//                Returns nil in the following cases:
+//                    - if the format has zero bytes per frame (format.streamDescription->mBytesPerFrame == 0)
+//                    - if the buffer byte capacity (frameCapacity * format.streamDescription->mBytesPerFrame)
+//                    cannot be represented by an uint32_t
+                print("Can't create PCM buffer")
+                return
+            }
 
-            let audioData = buffer.toNSDate()
+            //This is needed because the 'frameLenght' default value is 0 (since iOS 10) and cause the 'convert' call
+            //to faile with an error (Error Domain=NSOSStatusErrorDomain Code=-50 "(null)")
+            //More here: http://stackoverflow.com/questions/39714244/avaudioconverter-is-broken-in-ios-10
+            sphinxBuffer.frameLength = sphinxBuffer.frameCapacity
+
+            do {
+                try bufferMapper.convert(to: sphinxBuffer, from: buffer)
+            } catch(let error as NSError) {
+                print(error)
+                return
+            }
+
+            let audioData = sphinxBuffer.toData()
             self.process_raw(audioData)
 
-            if self.speechState == .Utterance {
+            print("Process: \(buffer.frameLength) frames - \(audioData.count) bytes - sample time: \(time.sampleTime)")
+
+            if self.speechState == .utterance {
 
                 self.end_utt()
                 let hypothesis = self.get_hyp()
-                
-                dispatch_async(dispatch_get_main_queue(), { 
+
+                DispatchQueue.main.async {
                     utteranceComplete(hypothesis)
-                })
+                }
 
                 self.start_utt()
             }
         })
-
-        engine.mainMixerNode.outputVolume = 0.0
-        engine.prepare()
 
         start_utt()
 
@@ -210,13 +240,24 @@ public class Decoder {
         } catch let error as NSError {
             end_utt()
             print("Can't start AVAudioEngine: \(error)")
+            throw DecodeErrors.CantStartAudioEngine(error)
         }
     }
 
     public func stopDecodingSpeech () {
         engine.stop()
-        engine.mainMixerNode.removeTapOnBus(0)
-        engine.reset()
         engine = nil
+    }
+
+    public func add(words:Array<(word: String, phones: String)>) throws {
+
+        guard engine == nil || !engine.isRunning else {
+            throw DecodeErrors.CantAddWordsWhileDecodeingSpeech
+        }
+
+        for (word,phones) in words {
+            let update = words.last?.word == word ? STrue32 : SFalse32
+            ps_add_word(psDecoder, word, phones, update)
+        }
     }
 }

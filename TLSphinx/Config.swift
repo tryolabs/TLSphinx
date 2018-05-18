@@ -9,20 +9,20 @@
 import Foundation
 import Sphinx.Base
 
-public class Config {
+public final class Config {
     
-    var cmdLnConf: COpaquePointer
-    private var cArgs: [UnsafeMutablePointer<Int8>]
+    var cmdLnConf: OpaquePointer?
+    fileprivate var cArgs: [UnsafeMutablePointer<Int8>?]
     
     public init?(args: (String,String)...) {
         
         // Create [UnsafeMutablePointer<Int8>].
-        cArgs = args.flatMap { (name, value) -> [UnsafeMutablePointer<Int8>] in
+        cArgs = args.flatMap { (name, value) -> [UnsafeMutablePointer<Int8>?] in
             //strdup move the strings to the heap and return a UnsageMutablePointer<Int8>
             return [strdup(name),strdup(value)]
         }
         
-        cmdLnConf = cmd_ln_parse_r(nil, ps_args(), CInt(cArgs.count), &cArgs, STrue)
+        cmdLnConf = cmd_ln_parse_r(nil, ps_args(), CInt(cArgs.count), &cArgs, STrue32)
         
         if cmdLnConf == nil {
             return nil
