@@ -5,11 +5,14 @@
 //  Created by Bruno Berisso on 5/29/15.
 //  Copyright (c) 2015 Bruno Berisso. All rights reserved.
 //
+//  Updated by mainvolume Copyright © 2018. All rights reserved.
 
 import Foundation
 import AVFoundation
 import Sphinx
 
+//A global buffer size in the decoder to be used when initialize the models -nfft parameter
+public let bufferSize = 16384
 
 fileprivate enum SpeechStateEnum : CustomStringConvertible {
     case silence
@@ -123,7 +126,7 @@ public final class Decoder {
 
     fileprivate func hypotesisForSpeech (inFile fileHandle: FileHandle) -> Hypothesis? {
 
-        start_utt()
+        startUtterence()
 
         let hypothesis = fileHandle.reduceChunks(2048, initial: nil, reducer: {
             (data: Data, partialHyp: Hypothesis?) -> Hypothesis? in
@@ -133,15 +136,15 @@ public final class Decoder {
             var resultantHyp = partialHyp
             if speechState == .utterance {
 
-                end_utt()
+                stopUtterence()
                 resultantHyp = partialHyp + get_hyp()
-                start_utt()
+                startUtterence()
             }
 
             return resultantHyp
         })
 
-        end_utt()
+        stopUtterence()
 
         //Process any pending speech
         if speechState == .speech {
@@ -165,33 +168,32 @@ public final class Decoder {
             }
         }
     }
-    
-    public func startDecodingSpeech (_ utteranceComplete: @escaping (Hypothesis?) -> ()) throws {
-
+	
+    public func startDecodingSpeech (_ audioSessionCategoryOptions:AVAudioSessionCategoryOptions = [.mixWithOthers, .allowBluetoothA2DP],  utteranceComplete: @escaping (Hypothesis?) -> ()) throws {
+        
         do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryRecord)
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, with: audioSessionCategoryOptions)
         } catch let error as NSError {
             print("Error setting the shared AVAudioSession: \(error)")
             throw DecodeErrors.CantSetAudioSession(error)
         }
-
+       
         engine = AVAudioEngine()
 
         let input = engine.inputNode
         let mixer = AVAudioMixerNode()
         engine.attach(mixer)
         engine.connect(input, to: mixer, format: input.outputFormat(forBus: 0))
-
-        // We forceunwrap this because the docs for AVAudioFormat specify that this constructor return nil when the channels
-        // are grater than 2.
-        let formatIn = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: 16000, channels: 1, interleaved: false)!
-        let formatOut = AVAudioFormat(commonFormat: .pcmFormatInt16, sampleRate: 16000, channels: 1, interleaved: false)!
+        
+        let formatIn = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: input.outputFormat(forBus: 0).sampleRate, channels: 1, interleaved: false)!
+        let formatOut = AVAudioFormat(commonFormat: .pcmFormatInt16, sampleRate: input.outputFormat(forBus: 0).sampleRate, channels: 1, interleaved: false)!
+     
         guard let bufferMapper = AVAudioConverter(from: formatIn, to: formatOut) else {
             // Returns nil if the format conversion is not possible.
             throw DecodeErrors.CantConvertAudioFormat
         }
 
-        mixer.installTap(onBus: 0, bufferSize: 2048, format: formatIn, block: {
+        mixer.installTap(onBus: 0, bufferSize: AVAudioFrameCount(bufferSize), format: formatIn, block: {
             [unowned self] (buffer: AVAudioPCMBuffer!, time: AVAudioTime!) in
 
             guard let sphinxBuffer = AVAudioPCMBuffer(pcmFormat: formatOut, frameCapacity: buffer.frameCapacity) else {
@@ -218,27 +220,28 @@ public final class Decoder {
             let audioData = sphinxBuffer.toData()
             self.process_raw(audioData)
 
-            print("Process: \(buffer.frameLength) frames - \(audioData.count) bytes - sample time: \(time.sampleTime)")
+            // uncomment for frame monitorting
+            //print("Process: \(buffer.frameLength) frames - \(audioData.count) bytes - sample time: \(time.sampleTime)")
 
             if self.speechState == .utterance {
 
-                self.end_utt()
+                self.endUtterence()
                 let hypothesis = self.get_hyp()
 
                 DispatchQueue.main.async {
                     utteranceComplete(hypothesis)
                 }
 
-                self.start_utt()
+                self.startUtterence()
             }
         })
 
-        start_utt()
+        startUtterence()
 
         do {
             try engine.start()
         } catch let error as NSError {
-            end_utt()
+            endUtterence()
             print("Can't start AVAudioEngine: \(error)")
             throw DecodeErrors.CantStartAudioEngine(error)
         }
@@ -248,7 +251,33 @@ public final class Decoder {
         engine.stop()
         engine = nil
     }
-
+    
+    public func startUtterence() {
+		    self.start_utt()
+	  }
+	
+	  public func startDecodingBuffer(buffer: AVAudioPCMBuffer!, time: AVAudioTime!, utteranceComplete: @escaping (Hypothesis?)-> ()) throws {
+		
+		   let audioData = buffer.toData()
+	  	  self.process_raw(audioData)
+		
+		   if self.speechState == .utterance {
+			
+		  	  self.endUtterence()
+		    	let hypothesis = self.get_hyp()
+			
+		  	  DispatchQueue.main.async {
+			    	utteranceComplete(hypothesis)
+		  	  }
+			
+			    self.startUtterence()
+		    }
+	  }
+	
+    public func endUtterence() {
+		  	self.end_utt()
+	  }
+	
     public func add(words:Array<(word: String, phones: String)>) throws {
 
         guard engine == nil || !engine.isRunning else {

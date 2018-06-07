@@ -147,6 +147,12 @@ Then run `carthage update`, this should fetch and build the last version of `TLS
 
 Download the project from this repository and drag the _TLSpinx_ project to your XCode project. If you encounter any errors about missing headers and/or libraries for _Sphinx_ please add the `Spinx/include` directory to your header search path and `Sphinx/lib` to the library search path and mark it as `recursive`.
 
+## Community
+
+[![Slack][slack-image]][slack-url]
+
+Join us on Slack!
+
 ## Author
 
 BrunoBerisso, bruno@tryolabs.com
@@ -162,3 +168,5 @@ TLSphinx is available under the MIT license. See the LICENSE file for more info.
 [Sphinx docs]: http://cmusphinx.sourceforge.net/wiki/
 [Tryolabs Blog]: http://blog.tryolabs.com/
 [Carthage]: https://github.com/Carthage/Carthage
+[slack-image]: http://s13.postimg.org/ybwy92ktf/Slack.png
+[slack-url]: https://slackin-telsphinx.herokuapp.com/

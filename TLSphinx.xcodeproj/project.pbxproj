@@ -11,11 +11,12 @@
 		9B5187BB1B18E1E80000E78D /* TLSphinx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B5187AF1B18E1E80000E78D /* TLSphinx.framework */; };
 		9B5187C21B18E1E80000E78D /* Basic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5187C11B18E1E80000E78D /* Basic.swift */; };
 		9B5187CC1B18E79B0000E78D /* Decoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5187CB1B18E79B0000E78D /* Decoder.swift */; };
-		9B5187E51B18EE280000E78D /* en-us in Resources */ = {isa = PBXBuildFile; fileRef = 9B5187E41B18EE280000E78D /* en-us */; };
 		9B5187E71B18F0D40000E78D /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5187E61B18F0D40000E78D /* Config.swift */; };
 		9B5187E91B18F1A50000E78D /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5187E81B18F1A50000E78D /* Globals.swift */; };
 		9B5187EB1B19011B0000E78D /* LiveDecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5187EA1B19011B0000E78D /* LiveDecode.swift */; };
 		9B943A291B1CB30A00CD4F11 /* Hypotesis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B943A281B1CB30A00CD4F11 /* Hypotesis.swift */; };
+		AEAF925F20C87E1E0039F4E0 /* en-us in Resources */ = {isa = PBXBuildFile; fileRef = AEAF925E20C87E1E0039F4E0 /* en-us */; };
+		AEAF926020C87E1E0039F4E0 /* en-us in Resources */ = {isa = PBXBuildFile; fileRef = AEAF925E20C87E1E0039F4E0 /* en-us */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,11 +37,11 @@
 		9B5187C01B18E1E80000E78D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B5187C11B18E1E80000E78D /* Basic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Basic.swift; sourceTree = "<group>"; };
 		9B5187CB1B18E79B0000E78D /* Decoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Decoder.swift; sourceTree = "<group>"; };
-		9B5187E41B18EE280000E78D /* en-us */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "en-us"; sourceTree = "<group>"; };
 		9B5187E61B18F0D40000E78D /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		9B5187E81B18F1A50000E78D /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		9B5187EA1B19011B0000E78D /* LiveDecode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveDecode.swift; sourceTree = "<group>"; };
 		9B943A281B1CB30A00CD4F11 /* Hypotesis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hypotesis.swift; sourceTree = "<group>"; };
+		AEAF925E20C87E1E0039F4E0 /* en-us */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "en-us"; path = "Sphinx/share/pocketsphinx/model/en-us"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +96,7 @@
 		9B5187B21B18E1E80000E78D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AEAF922820C86AF70039F4E0 /* model */,
 				9B5187B41B18E1E80000E78D /* TLSphinx.h */,
 				9B5187B31B18E1E80000E78D /* Info.plist */,
 			);
@@ -114,20 +116,18 @@
 		9B5187BF1B18E1E80000E78D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				9B5187CD1B18EDF40000E78D /* model */,
 				9B5187C01B18E1E80000E78D /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		9B5187CD1B18EDF40000E78D /* model */ = {
+		AEAF922820C86AF70039F4E0 /* model */ = {
 			isa = PBXGroup;
 			children = (
-				9B5187E41B18EE280000E78D /* en-us */,
+				AEAF925E20C87E1E0039F4E0 /* en-us */,
 			);
 			name = model;
-			path = Sphinx/share/pocketsphinx/model;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
@@ -187,7 +187,7 @@
 			attributes = {
 				LastSwiftMigration = 0720;
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Bruno Berisso";
 				TargetAttributes = {
 					9B5187AE1B18E1E80000E78D = {
@@ -196,7 +196,7 @@
 					};
 					9B5187B91B18E1E80000E78D = {
 						CreatedOnToolsVersion = 6.3.2;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0940;
 					};
 				};
 			};
@@ -223,6 +223,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AEAF925F20C87E1E0039F4E0 /* en-us in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,7 +231,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9B5187E51B18EE280000E78D /* en-us in Resources */,
+				AEAF926020C87E1E0039F4E0 /* en-us in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,14 +277,22 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -308,7 +317,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -328,14 +337,22 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -353,7 +370,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -384,7 +401,7 @@
 				);
 				INFOPLIST_FILE = TLSphinx/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx",
@@ -418,7 +435,7 @@
 				);
 				INFOPLIST_FILE = TLSphinx/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/Sphinx/lib/pocketsphinx",
@@ -454,7 +471,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tryolabs.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -476,7 +494,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tryolabs.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
