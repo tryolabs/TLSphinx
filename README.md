@@ -149,6 +149,10 @@ You must also tell XCode where to find `Sphinx` module that is located in the Ca
 
 Download the project from this repository and drag the _TLSpinx_ project to your XCode project. If you encounter any errors about missing headers and/or libraries for _Sphinx_ please add the `Spinx/include` directory to your header search path and `Sphinx/lib` to the library search path and mark it as `recursive`.
 
+## Community
+
+[Join us on Slack!][slack-url]
+
 ## Author
 
 BrunoBerisso, bruno@tryolabs.com
@@ -165,3 +169,4 @@ TLSphinx is available under the MIT license. See the LICENSE file for more info.
 [Tryolabs Blog]: http://blog.tryolabs.com/
 [Carthage]: https://github.com/Carthage/Carthage
 [installation instructions]: https://github.com/Carthage/Carthage#getting-started
+[slack-url]: https://slackin-telsphinx.herokuapp.com/
