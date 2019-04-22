@@ -135,10 +135,12 @@ The easiest way to integrate `TLSphinx` is using [Carthage] or a similar method 
 
 In your `Cartfile` add a reference to the last version of `TLSphinx`:
 ````
-github "Tryolabs/TLSphinx" ~> 1.0.0
+github "Tryolabs/TLSphinx" ~> 1.0.1
 ````
 
-Then run `carthage update`, this should fetch and build the last version of `TLSphinx`. Once it's done, drag the _TLSphinx.framewok_ bundle to the XCode _Linked Frameworks and Libraries_. You must tell XCode where to find `Sphinx` module that is located in the Carthage checkout. To do so:
+Then run `carthage update` and follow the standar [installation instructions] described on the Carthage site.
+
+You must also tell XCode where to find `Sphinx` module that is located in the Carthage checkout. To do so:
 - add `$(SRCROOT)/Carthage/Checkouts/TLSphinx/Sphinx/include` to _Header Search Paths_ recursive
 - add `$(SRCROOT)/Carthage/Checkouts/TLSphinx/Sphinx/lib` to _Library Search Paths_ recursive
 - in _Swift Compiler - Search Paths_ add `$(SRCROOT)/Carthage/Checkouts/TLSphinx/Sphinx/include` to _Import Paths_
@@ -149,9 +151,7 @@ Download the project from this repository and drag the _TLSpinx_ project to your
 
 ## Community
 
-[![Slack][slack-image]][slack-url]
-
-Join us on Slack!
+[Join us on Slack!][slack-url]
 
 ## Author
 
@@ -168,5 +168,5 @@ TLSphinx is available under the MIT license. See the LICENSE file for more info.
 [Sphinx docs]: http://cmusphinx.sourceforge.net/wiki/
 [Tryolabs Blog]: http://blog.tryolabs.com/
 [Carthage]: https://github.com/Carthage/Carthage
-[slack-image]: http://s13.postimg.org/ybwy92ktf/Slack.png
+[installation instructions]: https://github.com/Carthage/Carthage#getting-started
 [slack-url]: https://slackin-telsphinx.herokuapp.com/
