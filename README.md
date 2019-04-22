@@ -135,7 +135,7 @@ The easiest way to integrate `TLSphinx` is using [Carthage] or a similar method 
 
 In your `Cartfile` add a reference to the last version of `TLSphinx`:
 ````
-github "Tryolabs/TLSphinx" ~> 0.0.4
+github "Tryolabs/TLSphinx" ~> 1.0.1
 ````
 
 Then run `carthage update` and follow the standar [installation instructions] described on the Carthage site.
