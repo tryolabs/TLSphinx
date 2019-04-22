@@ -168,11 +168,17 @@ public final class Decoder {
     
     public func startDecodingSpeech (_ utteranceComplete: @escaping (Hypothesis?) -> ()) throws {
 
-        do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryRecord)
-        } catch let error as NSError {
-            print("Error setting the shared AVAudioSession: \(error)")
-            throw DecodeErrors.CantSetAudioSession(error)
+        if #available(iOS 10.0, *) {
+            do {
+                try AVAudioSession.sharedInstance().setCategory(.playback, mode: .moviePlayback)
+            } catch let error as NSError {
+                print("Error setting the shared AVAudioSession: \(error)")
+                throw DecodeErrors.CantSetAudioSession(error)
+            }
+        } else {
+            // Workaround until https://forums.swift.org/t/using-methods-marked-unavailable-in-swift-4-2/14949 isn't fixed
+            AVAudioSession.sharedInstance().perform(
+                NSSelectorFromString("setCategory:error:"), with: AVAudioSession.Category.playback)
         }
 
         engine = AVAudioEngine()
