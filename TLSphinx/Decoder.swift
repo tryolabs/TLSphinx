@@ -168,17 +168,15 @@ public final class Decoder {
     
     public func startDecodingSpeech (_ utteranceComplete: @escaping (Hypothesis?) -> ()) throws {
 
-        if #available(iOS 10.0, *) {
-            do {
-                try AVAudioSession.sharedInstance().setCategory(.playback, mode: .moviePlayback)
-            } catch let error as NSError {
-                print("Error setting the shared AVAudioSession: \(error)")
-                throw DecodeErrors.CantSetAudioSession(error)
+        do {
+            if #available(iOS 10.0, *) {
+                try AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .voiceChat, options: [])
+            } else {
+                try AVAudioSession.sharedInstance().setCategory(.playAndRecord)
             }
-        } else {
-            // Workaround until https://forums.swift.org/t/using-methods-marked-unavailable-in-swift-4-2/14949 isn't fixed
-            AVAudioSession.sharedInstance().perform(
-                NSSelectorFromString("setCategory:error:"), with: AVAudioSession.Category.playback)
+        } catch let error as NSError {
+            print("Error setting the shared AVAudioSession: \(error)")
+            throw DecodeErrors.CantSetAudioSession(error)
         }
 
         engine = AVAudioEngine()
@@ -201,17 +199,17 @@ public final class Decoder {
             [unowned self] (buffer: AVAudioPCMBuffer!, time: AVAudioTime!) in
 
             guard let sphinxBuffer = AVAudioPCMBuffer(pcmFormat: formatOut, frameCapacity: buffer.frameCapacity) else {
-//                Returns nil in the following cases:
-//                    - if the format has zero bytes per frame (format.streamDescription->mBytesPerFrame == 0)
-//                    - if the buffer byte capacity (frameCapacity * format.streamDescription->mBytesPerFrame)
-//                    cannot be represented by an uint32_t
+                // Returns nil in the following cases:
+                //    - if the format has zero bytes per frame (format.streamDescription->mBytesPerFrame == 0)
+                //    - if the buffer byte capacity (frameCapacity * format.streamDescription->mBytesPerFrame)
+                //    cannot be represented by an uint32_t
                 print("Can't create PCM buffer")
                 return
             }
 
-            //This is needed because the 'frameLenght' default value is 0 (since iOS 10) and cause the 'convert' call
-            //to faile with an error (Error Domain=NSOSStatusErrorDomain Code=-50 "(null)")
-            //More here: http://stackoverflow.com/questions/39714244/avaudioconverter-is-broken-in-ios-10
+            // This is needed because the 'frameLenght' default value is 0 (since iOS 10) and cause the 'convert' call
+            // to faile with an error (Error Domain=NSOSStatusErrorDomain Code=-50 "(null)")
+            // More here: http://stackoverflow.com/questions/39714244/avaudioconverter-is-broken-in-ios-10
             sphinxBuffer.frameLength = sphinxBuffer.frameCapacity
 
             do {
